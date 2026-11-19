@@ -1,0 +1,23 @@
+{
+  "latitude": 28.576448,
+  "longitude": 77.18678,
+  "generationtime_ms": 0.06461143493652344,
+  "utc_offset_seconds": 19800,
+  "timezone": "Asia/Kolkata",
+  "timezone_abbreviation": "GMT+5:30",
+  "elevation": 217.0,
+  "current_units": {
+    "time": "iso8601",
+    "interval": "seconds",
+    "temperature_2m": "°C",
+    "relative_humidity_2m": "%",
+    "wind_speed_10m": "km/h"
+  },
+  "current": {
+    "time": "2026-11-19T14:00",
+    "interval": 900,
+    "temperature_2m": 23.5,
+    "relative_humidity_2m": 46,
+    "wind_speed_10m": 3.8
+  }
+}

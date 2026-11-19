@@ -15,6 +15,33 @@ export const ALLOWED_HOSTS = [
 export type AllowedHost = (typeof ALLOWED_HOSTS)[number];
 
 /**
+ * Open-Meteo geocoding endpoint for city search.
+ */
+export const GEOCODING_BASE_URL =
+  "https://geocoding-api.open-meteo.com/v1/search";
+
+/**
+ * Open-Meteo air quality endpoint.
+ */
+export const AIR_QUALITY_BASE_URL =
+  "https://air-quality-api.open-meteo.com/v1/air-quality";
+
+/**
+ * Open-Meteo weather forecast endpoint.
+ */
+export const WEATHER_BASE_URL = "https://api.open-meteo.com/v1/forecast";
+
+/**
+ * Maximum number of city matches returned by geocoding.
+ */
+export const GEOCODING_RESULT_LIMIT = 5;
+
+/**
+ * Days of hourly air forecast requested from Open-Meteo.
+ */
+export const AIR_FORECAST_DAYS = 2;
+
+/**
  * Maximum time to wait for an air, weather or geocoding response.
  */
 export const UPSTREAM_TIMEOUT_MS = 5_000;
