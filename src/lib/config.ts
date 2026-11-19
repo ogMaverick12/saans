@@ -40,6 +40,11 @@ export const FREE_TEXT_MAX_CHARS = 200;
 export const RATE_LIMIT_PER_MINUTE = 20;
 
 /**
+ * Maximum number of client keys tracked by the in-memory rate limiter.
+ */
+export const RATE_LIMIT_MAX_KEYS = 5_000;
+
+/**
  * Decimal places kept when rounding latitude and longitude.
  */
 export const COORDINATE_DECIMALS = 2;
