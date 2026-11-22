@@ -1,11 +1,13 @@
 import { z } from "zod";
+import {
+  ASK_QUESTION_MAX_CHARS,
+  ASK_QUESTION_MIN_CHARS,
+} from "@/lib/config";
 import { PlanSchema } from "@/lib/llm/plan-schema";
 import { ProfileSchema } from "@/lib/profile/schema";
 
 const MIN_QUERY_CHARS = 2;
 const MAX_QUERY_CHARS = 80;
-const MIN_QUESTION_CHARS = 3;
-const MAX_QUESTION_CHARS = 300;
 const MAX_PLACE_NAME_CHARS = 80;
 const MAX_COUNTRY_CHARS = 80;
 const MAX_COUNTRY_CODE_CHARS = 8;
@@ -81,8 +83,8 @@ export const AskRequestSchema = z.object({
   question: z
     .string()
     .trim()
-    .min(MIN_QUESTION_CHARS)
-    .max(MAX_QUESTION_CHARS),
+    .min(ASK_QUESTION_MIN_CHARS)
+    .max(ASK_QUESTION_MAX_CHARS),
   plan: PlanSchema,
   language: LanguageSchema,
 });

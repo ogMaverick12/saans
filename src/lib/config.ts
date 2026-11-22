@@ -64,6 +64,26 @@ export const AIR_CACHE_SECONDS = 600;
 export const FREE_TEXT_MAX_CHARS = 200;
 
 /**
+ * Minimum length of a follow-up question, in characters.
+ */
+export const ASK_QUESTION_MIN_CHARS = 3;
+
+/**
+ * Maximum length of a follow-up question, in characters.
+ */
+export const ASK_QUESTION_MAX_CHARS = 300;
+
+/**
+ * How many question-and-answer pairs the ask box keeps in memory.
+ */
+export const MAX_ASK_EXCHANGES = 5;
+
+/**
+ * How long the what-if panel waits before announcing a new estimate, in milliseconds.
+ */
+export const WHAT_IF_ANNOUNCE_DELAY_MS = 400;
+
+/**
  * Requests allowed per client IP per minute for every API route.
  */
 export const RATE_LIMIT_PER_MINUTE = 20;

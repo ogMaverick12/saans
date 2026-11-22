@@ -816,3 +816,13 @@
     @apply font-sans;
   }
 }
+
+@media print {
+  [data-print-hide] {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+  }
+}

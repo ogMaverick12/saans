@@ -36,6 +36,7 @@ export interface PlanFlowState {
   place: PlaceInput | null;
   air: ClientAirDigest | null;
   plan: ClientPlanWithImpact | null;
+  profile: Profile | null;
   error: string | null;
   errorSource: PlanFlowErrorSource | null;
   planLanguage: Language;
@@ -48,8 +49,12 @@ export type PlanFlowAction =
   | { type: "PLACE_SELECTED"; place: PlaceInput }
   | { type: "AIR_LOADING" }
   | { type: "AIR_READY"; air: ClientAirDigest }
-  | { type: "PLAN_LOADING"; language: Language }
-  | { type: "PLAN_READY"; plan: ClientPlanWithImpact }
+  | { type: "PLAN_LOADING"; language: Language; profile: Profile }
+  | {
+      type: "PLAN_READY";
+      plan: ClientPlanWithImpact;
+      digest: ClientAirDigest;
+    }
   | { type: "FAILED"; source: PlanFlowErrorSource; message: string }
   | { type: "RESET" };
 
@@ -61,6 +66,7 @@ export const INITIAL_PLAN_FLOW_STATE: PlanFlowState = {
   place: null,
   air: null,
   plan: null,
+  profile: null,
   error: null,
   errorSource: null,
   planLanguage: "en",
@@ -104,12 +110,14 @@ export function planFlowReducer(
         error: null,
         errorSource: null,
         planLanguage: action.language,
+        profile: action.profile,
       };
     case "PLAN_READY":
       return {
         ...state,
         status: "planReady",
         plan: action.plan,
+        air: action.digest,
         error: null,
         errorSource: null,
       };
@@ -194,14 +202,18 @@ export function usePlanFlow() {
       const controller = new AbortController();
       planAbort.current = controller;
       const requestId = ++planRequest.current;
-      dispatch({ type: "PLAN_LOADING", language: input.language });
+      dispatch({
+        type: "PLAN_LOADING",
+        language: input.language,
+        profile: input.profile,
+      });
       requestPlan(
         { place: state.place, ...input },
         { signal: controller.signal },
       )
-        .then(({ plan }) => {
+        .then(({ plan, digest }) => {
           if (requestId === planRequest.current) {
-            dispatch({ type: "PLAN_READY", plan });
+            dispatch({ type: "PLAN_READY", plan, digest });
           }
         })
         .catch((error: unknown) => {

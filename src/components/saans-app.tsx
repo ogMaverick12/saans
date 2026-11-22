@@ -5,7 +5,7 @@ import { AirCard } from "@/components/air-card";
 import { AirCardSkeleton } from "@/components/air-card-skeleton";
 import { ErrorNotice } from "@/components/error-notice";
 import { LocationSearch } from "@/components/location-search";
-import { PlanPreview } from "@/components/plan-preview";
+import { PlanResult } from "@/components/plan-result";
 import { PlanSkeleton } from "@/components/plan-skeleton";
 import { ProfileForm } from "@/components/profile-form";
 import { usePlanFlow, type PlanFlowState } from "@/hooks/use-plan-flow";
@@ -52,7 +52,11 @@ export function SaansApp() {
 
   return (
     <div className="space-y-8">
-      <section aria-labelledby="search-heading" className="space-y-4">
+      <section
+        aria-labelledby="search-heading"
+        data-print-hide
+        className="space-y-4"
+      >
         <h2
           id="search-heading"
           className="text-xl font-semibold tracking-tight"
@@ -77,7 +81,11 @@ export function SaansApp() {
       )}
 
       {state.air !== null && (
-        <section aria-labelledby="profile-heading" className="space-y-4">
+        <section
+          aria-labelledby="profile-heading"
+          data-print-hide
+          className="space-y-4"
+        >
           <h2
             id="profile-heading"
             className="text-xl font-semibold tracking-tight"
@@ -102,13 +110,20 @@ export function SaansApp() {
           onRetry={retry}
         />
       )}
-      {state.status === "planReady" && state.plan !== null && (
-        <PlanPreview
-          plan={state.plan}
-          language={state.planLanguage}
-          headingRef={planHeadingRef}
-        />
-      )}
+      {state.status === "planReady" &&
+        state.plan !== null &&
+        state.air !== null &&
+        state.profile !== null &&
+        state.place !== null && (
+          <PlanResult
+            plan={state.plan}
+            digest={state.air}
+            profile={state.profile}
+            place={state.place}
+            language={state.planLanguage}
+            headingRef={planHeadingRef}
+          />
+        )}
     </div>
   );
 }

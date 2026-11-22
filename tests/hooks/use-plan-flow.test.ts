@@ -6,7 +6,7 @@ import {
 } from "@/hooks/use-plan-flow";
 import type { PlaceInput } from "@/lib/api/schemas";
 import { buildClientPlan } from "../lib/api/client-test-data";
-import { buildDigest } from "../lib/impact/test-data";
+import { buildDigest, buildProfile } from "../lib/impact/test-data";
 
 const PLACE: PlaceInput = {
   name: "Delhi",
@@ -17,6 +17,7 @@ const PLACE: PlaceInput = {
 
 const AIR = buildDigest();
 const PLAN = buildClientPlan();
+const PROFILE = buildProfile();
 
 describe("planFlowReducer", () => {
   it("moves from idle through air to a ready plan", () => {
@@ -37,13 +38,20 @@ describe("planFlowReducer", () => {
     state = planFlowReducer(state, {
       type: "PLAN_LOADING",
       language: "hi",
+      profile: PROFILE,
     });
     expect(state.status).toBe("planLoading");
     expect(state.planLanguage).toBe("hi");
+    expect(state.profile).toEqual(PROFILE);
 
-    state = planFlowReducer(state, { type: "PLAN_READY", plan: PLAN });
+    state = planFlowReducer(state, {
+      type: "PLAN_READY",
+      plan: PLAN,
+      digest: AIR,
+    });
     expect(state.status).toBe("planReady");
     expect(state.plan).toEqual(PLAN);
+    expect(state.air).toEqual(AIR);
     expect(state.error).toBeNull();
   });
 
