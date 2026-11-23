@@ -11,6 +11,7 @@ const X_CONTENT_TYPE_OPTIONS = "X-Content-Type-Options";
 const REFERRER_POLICY = "Referrer-Policy";
 const PERMISSIONS_POLICY = "Permissions-Policy";
 
+// Next.js streams hydration data through inline scripts, so they cannot be blocked by source alone.
 const SCRIPT_SOURCES = "'self' 'unsafe-inline'";
 const UNSAFE_EVAL_SOURCE = " 'unsafe-eval'";
 

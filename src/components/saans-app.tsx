@@ -8,7 +8,8 @@ import { LocationSearch } from "@/components/location-search";
 import { PlanResult } from "@/components/plan-result";
 import { PlanSkeleton } from "@/components/plan-skeleton";
 import { ProfileForm } from "@/components/profile-form";
-import { usePlanFlow, type PlanFlowState } from "@/hooks/use-plan-flow";
+import { usePlanFlow } from "@/hooks/use-plan-flow";
+import type { PlanFlowState } from "@/lib/plan-flow";
 
 const FALLBACK_ERROR_MESSAGE = "Please try again.";
 

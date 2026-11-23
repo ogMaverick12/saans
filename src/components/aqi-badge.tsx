@@ -7,7 +7,7 @@ import {
   TriangleAlert,
   type LucideIcon,
 } from "lucide-react";
-import { cn } from "cn";
+import { cn } from "@/lib/utils";
 import type { AqiCategory, AqiLevel } from "@/lib/air/aqi-scales";
 import { AQI_BADGE_CLASSES } from "@/components/aqi-styles";
 

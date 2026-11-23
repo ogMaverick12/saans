@@ -87,7 +87,7 @@ The catalog has 14 factors: nine exposure factors (masks, air cleaners, ventilat
 - **Trip emissions.** Walking, cycling, public transport and carpooling show avoided kg CO2e per 10 km trip compared with driving alone.
 - **Timing.** Moving outdoor activity is computed from today's cleanest forecast window rather than a fixed percentage.
 
-Every impact number is an **estimate**, not a measurement. The ranges are approximate round numbers based on public-health and vehicle-emission guidance, and the source for each factor is shown in the UI. The model does not model dispersion, building air exchange, activity level, age or health status. It is not a substitute for a local air-quality monitor or medical advice. The what-if panel is a planning aid, not a prediction.
+Every impact number is an **estimate**, not a measurement. The ranges are approximate round numbers based on public-health and vehicle-emission guidance, and each factor in the plan shows its source. The what-if panel recalculates those estimates from the same factors, shows an overall caveat rather than a per-factor source, and is a planning aid, not a prediction. The model does not model dispersion, building air exchange, activity level, age or health status. It is not a substitute for a local air-quality monitor or medical advice.
 
 ## Services and APIs used
 
@@ -150,7 +150,7 @@ Open <http://localhost:3000>. To check the LLM configuration, open <http://local
 - **Free text.** At most 200 characters, control characters and angle brackets stripped, whitespace collapsed, and placed inside `<user_note>` tags with an instruction to treat it as data.
 - **Outbound requests.** Host allowlist, HTTPS only and an `AbortSignal` timeout on every call.
 - **Rate limiting.** Every `/api` route allows 20 requests per IP per minute and returns `429` with `Retry-After`. The limiter is in memory and resets per serverless instance; it blocks bursts but is not a shared quota.
-- **Headers.** A CSP, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` and `poweredByHeader: false`.
+- **Headers.** A CSP, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` and `poweredByHeader: false`. The CSP allows inline scripts because Next.js streams hydration data through them; every other directive stays restricted to `'self'`.
 - **Rendering.** LLM text is rendered as React text nodes. There is no `dangerouslySetInnerHTML` and no `eval`.
 - **Errors.** A typed `AppError` carries a stable code and a safe message. Stack traces and upstream details are never sent to the browser.
 

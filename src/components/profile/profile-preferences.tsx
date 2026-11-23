@@ -1,0 +1,65 @@
+import { NoteField } from "@/components/profile/note-field";
+import { RadioFieldset } from "@/components/profile/radio-fieldset";
+import { SwitchField } from "@/components/profile/switch-field";
+import type { ProfileFormValues } from "@/lib/profile/form";
+import { BUDGET_OPTIONS, LANGUAGE_OPTIONS } from "@/lib/profile/form";
+
+/**
+ * Props for the budget, language, reading mode and note fields.
+ */
+export interface ProfilePreferencesProps {
+  values: ProfileFormValues;
+  errorFor: (field: string) => string | undefined;
+  update: <K extends keyof ProfileFormValues>(
+    field: K,
+    value: ProfileFormValues[K],
+  ) => void;
+}
+
+/**
+ * Renders the budget, plan language, reading mode and optional note answers.
+ */
+export function ProfilePreferences({
+  values,
+  errorFor,
+  update,
+}: ProfilePreferencesProps) {
+  return (
+    <>
+      <RadioFieldset
+        id="profile-budget"
+        name="budget"
+        legend="Budget for extra measures"
+        value={values.budget}
+        options={BUDGET_OPTIONS}
+        onChange={(budget) => update("budget", budget)}
+        error={errorFor("budget")}
+      />
+
+      <RadioFieldset
+        id="profile-language"
+        name="language"
+        legend="Plan language"
+        value={values.language}
+        options={LANGUAGE_OPTIONS}
+        onChange={(language) => update("language", language)}
+      />
+
+      <SwitchField
+        id="profile-reading-mode"
+        label="Simple reading mode"
+        description="Use shorter sentences and everyday words."
+        checked={values.readingMode === "simple"}
+        onChange={(checked) =>
+          update("readingMode", checked ? "simple" : "standard")
+        }
+      />
+
+      <NoteField
+        value={values.note}
+        onChange={(note) => update("note", note)}
+        error={errorFor("note")}
+      />
+    </>
+  );
+}

@@ -115,7 +115,10 @@ export const ProfileSchema = z.object({
   cookingFuel: CookingFuelSchema,
   heating: HeatingSchema,
   budget: BudgetSchema,
-  note: z.string().transform(sanitizeFreeText).optional(),
+  note: z
+    .string()
+    .transform((note) => sanitizeFreeText(note))
+    .optional(),
 });
 
 /**

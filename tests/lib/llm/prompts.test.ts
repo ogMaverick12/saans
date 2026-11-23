@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { ASK_QUESTION_MAX_CHARS } from "@/lib/config";
 import { IMPACT_FACTORS } from "@/lib/impact/impact-factors";
 import {
   buildAskPrompt,
@@ -115,6 +116,31 @@ describe("buildAskPrompt", () => {
     expect(prompt.user.split("<question>")).toHaveLength(2);
     expect(prompt.system).toContain("Requested language: Bengali (bn).");
     expect(prompt.system).not.toContain("Reading mode:");
+  });
+
+  it("keeps a question up to the ask character limit", () => {
+    const question = "a".repeat(ASK_QUESTION_MAX_CHARS);
+    const prompt = buildAskPrompt({
+      question,
+      digest: buildDigest(),
+      plan: VALID_PLAN,
+      language: "en",
+    });
+
+    expect(prompt.user).toContain(`<question>${question}</question>`);
+  });
+
+  it("truncates a question longer than the ask character limit", () => {
+    const prompt = buildAskPrompt({
+      question: "a".repeat(ASK_QUESTION_MAX_CHARS + 20),
+      digest: buildDigest(),
+      plan: VALID_PLAN,
+      language: "en",
+    });
+
+    expect(prompt.user).toContain(
+      `<question>${"a".repeat(ASK_QUESTION_MAX_CHARS)}</question>`,
+    );
   });
 
   it("keeps the numbered rules for follow-up answers", () => {

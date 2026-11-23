@@ -1,5 +1,7 @@
 import type { AppErrorCode } from "@/lib/errors";
 
+export { isAbortError } from "@/lib/abort";
+
 const GENERIC_CLIENT_MESSAGE = "Something went wrong. Please try again.";
 
 /**
@@ -24,18 +26,6 @@ export class ClientError extends Error {
     this.code = code;
     this.safeMessage = safeMessage;
   }
-}
-
-/**
- * Checks whether an unknown value is an abort error from fetch.
- */
-export function isAbortError(error: unknown): boolean {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "name" in error &&
-    error.name === "AbortError"
-  );
 }
 
 /**

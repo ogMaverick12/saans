@@ -5,13 +5,16 @@ const ANGLE_BRACKETS = /[<>]/g;
 const WHITESPACE = /\s+/g;
 
 /**
- * Trims, strips control characters and angle brackets, collapses whitespace and truncates free text.
+ * Trims, strips control characters and angle brackets, collapses whitespace and truncates to maxChars.
  */
-export function sanitizeFreeText(input: string): string {
+export function sanitizeFreeText(
+  input: string,
+  maxChars: number = FREE_TEXT_MAX_CHARS,
+): string {
   return input
     .replace(CONTROL_CHARACTERS, "")
     .replace(ANGLE_BRACKETS, "")
     .replace(WHITESPACE, " ")
     .trim()
-    .slice(0, FREE_TEXT_MAX_CHARS);
+    .slice(0, maxChars);
 }

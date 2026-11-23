@@ -31,6 +31,8 @@ const ApiEnvelopeSchema = z.discriminatedUnion("ok", [
   ApiFailureSchema,
 ]);
 
+type ApiEnvelope = z.infer<typeof ApiEnvelopeSchema>;
+
 const defaultFetch: ClientFetch = (input, init) => fetch(input, init);
 
 /**
@@ -42,6 +44,42 @@ export function jsonPost(body: unknown): RequestInit {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   };
+}
+
+/**
+ * Reads a response body as JSON, mapping malformed bodies to a client error.
+ */
+async function readJson(response: Response): Promise<unknown> {
+  try {
+    return await response.json();
+  } catch {
+    throw new ClientError("INVALID_RESPONSE", INVALID_RESPONSE_MESSAGE);
+  }
+}
+
+/**
+ * Validates the API envelope and checks that it agrees with the HTTP status.
+ */
+function parseEnvelope(payload: unknown, responseOk: boolean): ApiEnvelope {
+  const envelope = ApiEnvelopeSchema.safeParse(payload);
+  if (!envelope.success || (!responseOk && envelope.data.ok)) {
+    throw new ClientError("INVALID_RESPONSE", INVALID_RESPONSE_MESSAGE);
+  }
+  return envelope.data;
+}
+
+/**
+ * Returns the success data or raises the envelope's typed failure.
+ */
+function parseData<T>(envelope: ApiEnvelope, schema: ZodType<T>): T {
+  if (!envelope.ok) {
+    throw new ClientError(envelope.error.code, envelope.error.message);
+  }
+  const parsed = schema.safeParse(envelope.data);
+  if (!parsed.success) {
+    throw new ClientError("INVALID_RESPONSE", INVALID_RESPONSE_MESSAGE);
+  }
+  return parsed.data;
 }
 
 /**
@@ -64,30 +102,6 @@ export async function requestJson<T>(
     throw new ClientError("NETWORK", NETWORK_MESSAGE);
   }
 
-  let payload: unknown;
-  try {
-    payload = await response.json();
-  } catch {
-    throw new ClientError("INVALID_RESPONSE", INVALID_RESPONSE_MESSAGE);
-  }
-
-  const envelope = ApiEnvelopeSchema.safeParse(payload);
-  if (!envelope.success) {
-    throw new ClientError("INVALID_RESPONSE", INVALID_RESPONSE_MESSAGE);
-  }
-  if (!response.ok && envelope.data.ok) {
-    throw new ClientError("INVALID_RESPONSE", INVALID_RESPONSE_MESSAGE);
-  }
-  if (!envelope.data.ok) {
-    throw new ClientError(
-      envelope.data.error.code,
-      envelope.data.error.message,
-    );
-  }
-
-  const parsed = schema.safeParse(envelope.data.data);
-  if (!parsed.success) {
-    throw new ClientError("INVALID_RESPONSE", INVALID_RESPONSE_MESSAGE);
-  }
-  return parsed.data;
+  const envelope = parseEnvelope(await readJson(response), response.ok);
+  return parseData(envelope, schema);
 }

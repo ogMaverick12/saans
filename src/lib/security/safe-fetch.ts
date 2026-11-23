@@ -1,3 +1,4 @@
+import { isAbortError } from "@/lib/abort";
 import { UPSTREAM_TIMEOUT_MS } from "@/lib/config";
 import { AppError } from "@/lib/errors";
 import { assertAllowedHost } from "@/lib/security/allowlist";
@@ -34,18 +35,6 @@ function parseUpstreamUrl(url: string | URL): URL {
   } catch {
     throw new AppError("UPSTREAM_BLOCKED", BLOCKED_MESSAGE);
   }
-}
-
-/**
- * Checks whether an unknown value is an abort error from fetch.
- */
-function isAbortError(error: unknown): boolean {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "name" in error &&
-    error.name === "AbortError"
-  );
 }
 
 /**

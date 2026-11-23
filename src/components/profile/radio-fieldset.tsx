@@ -1,4 +1,4 @@
-import { cn } from "cn";
+import { cn } from "@/lib/utils";
 import type { ProfileOption } from "@/lib/profile/form";
 
 /**

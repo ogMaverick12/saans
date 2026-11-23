@@ -17,6 +17,12 @@ describe("sanitizeFreeText", () => {
     expect(result).toHaveLength(FREE_TEXT_MAX_CHARS);
   });
 
+  it("accepts a caller-supplied character limit", () => {
+    const result = sanitizeFreeText("a".repeat(300), 300);
+
+    expect(result).toHaveLength(300);
+  });
+
   it("preserves non-Latin text and empty input", () => {
     expect(sanitizeFreeText("  हवा साफ है  ")).toBe("हवा साफ है");
     expect(sanitizeFreeText("   ")).toBe("");
