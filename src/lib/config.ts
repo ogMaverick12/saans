@@ -12,11 +12,6 @@ export const ALLOWED_HOSTS = [
 ] as const;
 
 /**
- * A hostname that outbound requests are permitted to reach.
- */
-export type AllowedHost = (typeof ALLOWED_HOSTS)[number];
-
-/**
  * Open-Meteo geocoding endpoint for city search.
  */
 export const GEOCODING_BASE_URL =

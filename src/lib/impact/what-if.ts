@@ -1,9 +1,6 @@
 import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
 import { EXPOSURE_FACTORS } from "@/lib/impact/impact-exposure-factors";
-import type {
-  ImpactFactor,
-  ImpactGroup,
-} from "@/lib/impact/impact-factors";
+import type { ImpactFactor, ImpactGroup } from "@/lib/impact/impact-factors";
 import { collectPlanFactors } from "@/lib/impact/plan-factors";
 
 /**
@@ -37,9 +34,7 @@ export function exposureFactorsForGroup(
 /**
  * Selects only the exposure factors the plan already recommends.
  */
-export function initialExposureSelection(
-  plan: ClientPlanWithImpact,
-): string[] {
+export function initialExposureSelection(plan: ClientPlanWithImpact): string[] {
   const attached = new Set(collectPlanFactors(plan).map((factor) => factor.id));
   return EXPOSURE_FACTORS.filter((factor) => attached.has(factor.id)).map(
     (factor) => factor.id,

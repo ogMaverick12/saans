@@ -4,9 +4,7 @@ import { formatIssues, readInput } from "@/lib/api/input";
 
 describe("formatIssues", () => {
   it("prefixes each issue with its field path", () => {
-    const result = z
-      .object({ q: z.string().min(2) })
-      .safeParse({ q: "a" });
+    const result = z.object({ q: z.string().min(2) }).safeParse({ q: "a" });
 
     expect(result.success).toBe(false);
     if (!result.success) {

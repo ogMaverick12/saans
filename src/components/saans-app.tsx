@@ -45,8 +45,7 @@ export function SaansApp() {
     }
   }, [state.status]);
 
-  const showAirError =
-    state.status === "error" && state.errorSource === "air";
+  const showAirError = state.status === "error" && state.errorSource === "air";
   const showPlanError =
     state.status === "error" && state.errorSource === "plan";
 

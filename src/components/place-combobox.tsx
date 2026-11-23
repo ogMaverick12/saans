@@ -6,8 +6,7 @@ import { LocationOptions } from "@/components/location-options";
 import type { PlaceComboboxController } from "@/hooks/use-place-combobox";
 import { placeResultAnnouncement } from "@/lib/place-search";
 
-const NO_RESULTS_MESSAGE =
-  "No places found. Try a nearby city or district.";
+const NO_RESULTS_MESSAGE = "No places found. Try a nearby city or district.";
 const SEARCH_HINT =
   "Type at least 2 characters, then use the arrow keys to choose a place.";
 

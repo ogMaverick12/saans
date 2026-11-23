@@ -118,8 +118,6 @@ export function buildReadAloudText(plan: ReadAloudPlan): string {
     (item) =>
       `${TIME_BLOCK_LABELS[item.timeBlock]}. ${item.title}. ${item.actions.join(". ")}.`,
   );
-  const hacks = plan.indoorHacks.map(
-    (hack) => `${hack.title}. ${hack.howTo}.`,
-  );
+  const hacks = plan.indoorHacks.map((hack) => `${hack.title}. ${hack.howTo}.`);
   return [plan.airSummary.headline, ...routine, ...hacks].join(" ");
 }

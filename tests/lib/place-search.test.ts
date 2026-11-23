@@ -34,9 +34,7 @@ describe("place search helpers", () => {
   });
 
   it("announces loading and stays quiet in other states", () => {
-    expect(placeResultAnnouncement("loading", 0)).toBe(
-      "Searching for places.",
-    );
+    expect(placeResultAnnouncement("loading", 0)).toBe("Searching for places.");
     expect(placeResultAnnouncement("idle", 0)).toBe("");
     expect(placeResultAnnouncement("error", 0)).toBe("");
   });

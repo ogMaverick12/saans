@@ -100,8 +100,3 @@ export type IndoorHack = Plan["indoorHacks"][number];
  * One validated sustainable alternative.
  */
 export type SustainableAlternative = Plan["sustainableAlternatives"][number];
-
-/**
- * One validated community action.
- */
-export type CommunityAction = Plan["communityActions"][number];

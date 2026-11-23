@@ -24,13 +24,15 @@ describe("what-if helpers", () => {
       "Timing",
     ]);
     expect(exposureFactorsForGroup("mask")).toHaveLength(3);
-    expect(exposureFactorsForGroup("timing").map((factor) => factor.id)).toEqual(
-      ["shift-outdoor-activity"],
-    );
+    expect(
+      exposureFactorsForGroup("timing").map((factor) => factor.id),
+    ).toEqual(["shift-outdoor-activity"]);
   });
 
   it("reports a shared group only when two selected factors share one", () => {
-    expect(hasDuplicateExposureGroups(["n95-mask", "surgical-mask"])).toBe(true);
+    expect(hasDuplicateExposureGroups(["n95-mask", "surgical-mask"])).toBe(
+      true,
+    );
     expect(hasDuplicateExposureGroups(["n95-mask", "hepa-purifier"])).toBe(
       false,
     );

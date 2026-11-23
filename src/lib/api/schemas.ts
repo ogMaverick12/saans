@@ -1,8 +1,5 @@
 import { z } from "zod";
-import {
-  ASK_QUESTION_MAX_CHARS,
-  ASK_QUESTION_MIN_CHARS,
-} from "@/lib/config";
+import { ASK_QUESTION_MAX_CHARS, ASK_QUESTION_MIN_CHARS } from "@/lib/config";
 import { PlanSchema } from "@/lib/llm/plan-schema";
 import { ProfileSchema } from "@/lib/profile/schema";
 

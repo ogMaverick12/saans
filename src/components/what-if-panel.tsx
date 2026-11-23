@@ -58,7 +58,9 @@ function announcementFor(
  * Lets the household toggle exposure factors and see the estimate change instantly.
  */
 export function WhatIfPanel({ digest, profile, plan }: WhatIfPanelProps) {
-  const [selected, setSelected] = useState(() => initialExposureSelection(plan));
+  const [selected, setSelected] = useState(() =>
+    initialExposureSelection(plan),
+  );
   const [hasChanged, setHasChanged] = useState(false);
   const estimate = useMemo(
     () => estimateExposure(digest, profile, selected),
@@ -80,10 +82,7 @@ export function WhatIfPanel({ digest, profile, plan }: WhatIfPanelProps) {
 
   return (
     <section aria-labelledby="impact-heading" className="space-y-4">
-      <h2
-        id="impact-heading"
-        className="text-xl font-semibold tracking-tight"
-      >
+      <h2 id="impact-heading" className="text-xl font-semibold tracking-tight">
         Your impact
       </h2>
       <div className="grid gap-6 lg:grid-cols-2">

@@ -32,9 +32,7 @@ describe("jsonResponse", () => {
 
     expect(response.status).toBe(201);
     expect(response.headers.get("content-type")).toContain("application/json");
-    expect(response.headers.get("cache-control")).toBe(
-      "private, max-age=300",
-    );
+    expect(response.headers.get("cache-control")).toBe("private, max-age=300");
     await expect(response.json()).resolves.toEqual({
       ok: true,
       data: { name: "Delhi" },

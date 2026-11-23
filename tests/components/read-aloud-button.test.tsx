@@ -47,9 +47,7 @@ describe("ReadAloudButton", () => {
 
     expect(speak).toHaveBeenCalledTimes(1);
     expect(spoken[0]?.lang).toBe("hi-IN");
-    expect(spoken[0]?.text).toContain(
-      "A hazy day, so keep the morning quiet",
-    );
+    expect(spoken[0]?.text).toContain("A hazy day, so keep the morning quiet");
 
     await user.click(screen.getByRole("button", { name: "Stop reading" }));
 

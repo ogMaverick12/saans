@@ -1,10 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { ImpactBadge } from "@/components/impact-badge";
-import {
-  IMPACT_FACTORS,
-  type ImpactFactor,
-} from "@/lib/impact/impact-factors";
+import { IMPACT_FACTORS, type ImpactFactor } from "@/lib/impact/impact-factors";
 
 /**
  * Returns a catalog factor or fails when the catalog is incomplete.

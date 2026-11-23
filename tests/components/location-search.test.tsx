@@ -24,7 +24,9 @@ const DELHI = {
 /**
  * Installs a fake geolocation implementation for one test.
  */
-function installGeolocation(getCurrentPosition: Geolocation["getCurrentPosition"]) {
+function installGeolocation(
+  getCurrentPosition: Geolocation["getCurrentPosition"],
+) {
   Object.defineProperty(navigator, "geolocation", {
     configurable: true,
     value: {
@@ -124,9 +126,7 @@ describe("LocationSearch", () => {
     render(<LocationSearch onSelect={onSelect} />);
     const user = userEvent.setup();
 
-    await user.click(
-      screen.getByRole("button", { name: "Use my location" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Use my location" }));
 
     expect(screen.getByRole("alert")).toHaveTextContent(
       "Location permission was denied. Search for a city instead.",
@@ -158,9 +158,7 @@ describe("LocationSearch", () => {
     render(<LocationSearch onSelect={onSelect} />);
     const user = userEvent.setup();
 
-    await user.click(
-      screen.getByRole("button", { name: "Use my location" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Use my location" }));
 
     expect(onSelect).toHaveBeenCalledWith({
       name: "Your location",

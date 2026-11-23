@@ -30,9 +30,7 @@ export function withApiGuard<TInput, TOutput>({
   handler,
   rateLimiter,
   cacheControl = NO_STORE_CACHE_CONTROL,
-}: ApiGuardOptions<TInput, TOutput>): (
-  request: Request,
-) => Promise<Response> {
+}: ApiGuardOptions<TInput, TOutput>): (request: Request) => Promise<Response> {
   return async (request) => {
     try {
       const limit = rateLimiter.check(getClientIp(request.headers));

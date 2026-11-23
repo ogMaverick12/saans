@@ -19,8 +19,7 @@ export const DEFAULT_RETRY_AFTER_SECONDS = 60;
 /**
  * Message shown when an unexpected error reaches the API boundary.
  */
-export const GENERIC_ERROR_MESSAGE =
-  "Something went wrong. Please try again.";
+export const GENERIC_ERROR_MESSAGE = "Something went wrong. Please try again.";
 
 const STATUS_BY_CODE: Readonly<Record<AppErrorCode, number>> = {
   VALIDATION_FAILED: 400,

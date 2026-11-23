@@ -1,10 +1,7 @@
 import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
 import { ImpactBadge } from "@/components/impact-badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  sortByTimeBlock,
-  TIME_BLOCK_LABELS,
-} from "@/lib/llm/plan-display";
+import { sortByTimeBlock, TIME_BLOCK_LABELS } from "@/lib/llm/plan-display";
 
 /**
  * Props for the daily routine section.
@@ -19,10 +16,7 @@ export interface DailyRoutineProps {
 export function DailyRoutine({ items }: DailyRoutineProps) {
   return (
     <section aria-labelledby="routine-heading" className="space-y-4">
-      <h2
-        id="routine-heading"
-        className="text-xl font-semibold tracking-tight"
-      >
+      <h2 id="routine-heading" className="text-xl font-semibold tracking-tight">
         Low-emission daily routine
       </h2>
       <ol className="space-y-3">

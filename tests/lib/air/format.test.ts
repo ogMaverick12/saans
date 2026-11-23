@@ -15,9 +15,9 @@ describe("air formatting", () => {
   });
 
   it("formats a three-hour window", () => {
-    expect(
-      formatAirWindow({ startHour: 14, endHour: 17, meanPm25: 20 }),
-    ).toBe("2 pm to 5 pm");
+    expect(formatAirWindow({ startHour: 14, endHour: 17, meanPm25: 20 })).toBe(
+      "2 pm to 5 pm",
+    );
   });
 
   it("turns trends and PM2.5 values into display text", () => {

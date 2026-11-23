@@ -1,8 +1,5 @@
 import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
-import {
-  IMPACT_FACTORS,
-  type ImpactFactor,
-} from "@/lib/impact/impact-factors";
+import { IMPACT_FACTORS, type ImpactFactor } from "@/lib/impact/impact-factors";
 
 /**
  * Returns one catalog factor or fails when the catalog is incomplete.

@@ -1,7 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
 import { withApiGuard } from "@/lib/api/guard";
 import { PRIVATE_CACHE_CONTROL } from "@/lib/api/responses";
-import { buildRequest, createLimiter, TEST_IP, TEST_SCHEMA } from "./guard-helpers";
+import {
+  buildRequest,
+  createLimiter,
+  TEST_IP,
+  TEST_SCHEMA,
+} from "./guard-helpers";
 
 describe("withApiGuard", () => {
   it("parses query input and wraps the result with no-store", async () => {
@@ -59,9 +64,7 @@ describe("withApiGuard", () => {
 
     const response = await GET(buildRequest());
 
-    expect(response.headers.get("cache-control")).toBe(
-      "private, max-age=300",
-    );
+    expect(response.headers.get("cache-control")).toBe("private, max-age=300");
   });
 
   it("returns field-level messages when validation fails", async () => {

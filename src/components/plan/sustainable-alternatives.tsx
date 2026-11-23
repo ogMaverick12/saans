@@ -32,9 +32,7 @@ export function SustainableAlternatives({
           >
             <CardHeader>
               <CardTitle>
-                <h3 className="text-base font-semibold">
-                  {alternative.swap}
-                </h3>
+                <h3 className="text-base font-semibold">{alternative.swap}</h3>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">

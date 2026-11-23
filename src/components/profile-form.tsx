@@ -80,9 +80,7 @@ export function ProfileForm({ onSubmit, isSubmitting }: ProfileFormProps) {
         hasPurifier={values.hasPurifier}
         hasAirConditioner={values.hasAirConditioner}
         onHomeTypeChange={(homeType) => update("homeType", homeType)}
-        onPurifierChange={(hasPurifier) =>
-          update("hasPurifier", hasPurifier)
-        }
+        onPurifierChange={(hasPurifier) => update("hasPurifier", hasPurifier)}
         onAirConditionerChange={(hasAirConditioner) =>
           update("hasAirConditioner", hasAirConditioner)
         }

@@ -18,7 +18,9 @@ const PLACE = {
 
 describe("GeocodeQuerySchema", () => {
   it("trims a query and accepts the two-to-eighty character range", () => {
-    expect(GeocodeQuerySchema.parse({ q: "  Delhi  " })).toEqual({ q: "Delhi" });
+    expect(GeocodeQuerySchema.parse({ q: "  Delhi  " })).toEqual({
+      q: "Delhi",
+    });
     expect(GeocodeQuerySchema.safeParse({ q: "a".repeat(80) }).success).toBe(
       true,
     );
@@ -26,9 +28,9 @@ describe("GeocodeQuerySchema", () => {
 
   it("rejects queries that are too short or too long", () => {
     expect(GeocodeQuerySchema.safeParse({ q: "a" }).success).toBe(false);
-    expect(
-      GeocodeQuerySchema.safeParse({ q: "a".repeat(81) }).success,
-    ).toBe(false);
+    expect(GeocodeQuerySchema.safeParse({ q: "a".repeat(81) }).success).toBe(
+      false,
+    );
   });
 });
 

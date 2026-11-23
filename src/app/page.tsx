@@ -8,7 +8,9 @@ export default function Home() {
           Saans
         </h1>
         <p className="mt-2 text-base text-muted-foreground">
-          {"Check today's air where you live, then get a plan for your household."}
+          {
+            "Check today's air where you live, then get a plan for your household."
+          }
         </p>
       </div>
       <div className="mt-8">
