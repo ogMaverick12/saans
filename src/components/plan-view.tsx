@@ -1,4 +1,6 @@
-import type { RefObject } from "react";
+"use client";
+
+import { useEffect, type RefObject } from "react";
 import { CommunityActions } from "@/components/plan/community-actions";
 import { DailyRoutine } from "@/components/plan/daily-routine";
 import { IndoorHacks } from "@/components/plan/indoor-hacks";
@@ -33,6 +35,10 @@ export function PlanView({
   language,
   headingRef,
 }: PlanViewProps) {
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, [headingRef]);
+
   return (
     <section
       aria-labelledby="plan-heading"

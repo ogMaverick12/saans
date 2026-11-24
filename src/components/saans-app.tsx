@@ -1,17 +1,36 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import "@/lib/zod-config";
+
+import dynamic from "next/dynamic";
+import { useRef } from "react";
 import { AirCard } from "@/components/air-card";
 import { AirCardSkeleton } from "@/components/air-card-skeleton";
 import { ErrorNotice } from "@/components/error-notice";
 import { LocationSearch } from "@/components/location-search";
-import { PlanResult } from "@/components/plan-result";
 import { PlanSkeleton } from "@/components/plan-skeleton";
-import { ProfileForm } from "@/components/profile-form";
 import { usePlanFlow } from "@/hooks/use-plan-flow";
 import type { PlanFlowState } from "@/lib/plan-flow";
 
 const FALLBACK_ERROR_MESSAGE = "Please try again.";
+
+const ProfileForm = dynamic(
+  () =>
+    import("@/components/profile-form").then((module) => module.ProfileForm),
+  {
+    ssr: false,
+    loading: () => (
+      <p role="status" className="text-sm text-muted-foreground">
+        Loading the household questions.
+      </p>
+    ),
+  },
+);
+
+const PlanResult = dynamic(
+  () => import("@/components/plan-result").then((module) => module.PlanResult),
+  { ssr: false },
+);
 
 /**
  * Builds the polite announcement for the current flow state.
@@ -39,12 +58,6 @@ function announcementFor(state: PlanFlowState): string {
 export function SaansApp() {
   const { state, selectPlace, generatePlan, retry } = usePlanFlow();
   const planHeadingRef = useRef<HTMLHeadingElement | null>(null);
-
-  useEffect(() => {
-    if (state.status === "planReady") {
-      planHeadingRef.current?.focus();
-    }
-  }, [state.status]);
 
   const showAirError = state.status === "error" && state.errorSource === "air";
   const showPlanError =
