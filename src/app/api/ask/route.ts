@@ -26,7 +26,7 @@ async function handleAsk(request: AskRequest): Promise<Ask> {
 /**
  * Allows the answer call to finish within Vercel's function limit.
  */
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 /**
  * POST /api/ask

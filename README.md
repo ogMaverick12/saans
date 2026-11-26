@@ -87,7 +87,7 @@ The brief: _a GenAI assistant that helps families and communities navigate sever
 | AI         | Google Gemini API; optional OpenRouter fallback                                             |
 | Data       | Open-Meteo geocoding, air quality and weather APIs; CAMS ENSEMBLE air-quality data          |
 | Tests      | Vitest 4, Testing Library, `@testing-library/user-event`, vitest-axe, jsdom, v8 coverage    |
-| Hosting    | Vercel, with Next.js serverless functions and a 30-second route limit                       |
+| Hosting    | Vercel, with Next.js serverless functions and a 60-second route limit                       |
 | CI         | GitHub Actions on Node 20: lint, typecheck, coverage, build and production dependency audit |
 
 ## Architecture
@@ -242,8 +242,8 @@ The model returns `factorIds`, never percentages or kilograms. `src/lib/impact/e
 | Plan output                      | 4,096 tokens                           |
 | Follow-up answer output          | 1,024 tokens                           |
 | Sampling temperature             | 0.4                                    |
-| Model call timeout               | 25 seconds                             |
-| Plan and ask route `maxDuration` | 30 seconds                             |
+| Model call timeout               | 55 seconds                             |
+| Plan and ask route `maxDuration` | 60 seconds                             |
 | Air digest sent to the model     | Designed to stay well under 600 tokens |
 | Optional household note          | 200 characters                         |
 | Follow-up question               | 3–300 characters                       |
@@ -303,7 +303,7 @@ Every impact number is an **estimate**, not a measurement. The ranges are approx
 | OpenRouter                 | Optional fallback LLM provider                                      | `https://openrouter.ai` via `src/lib/llm/openrouter.ts`                 |
 | Vercel                     | Hosting and serverless functions                                    | Deployment only; no SDK in the code                                     |
 
-Only the five upstream API hosts above are allowlisted in `src/lib/config.ts`. Every outbound request uses HTTPS, an `AbortSignal` timeout and the shared safe-fetch wrapper. Air and weather calls use a 5-second timeout; LLM calls use 25 seconds.
+Only the five upstream API hosts above are allowlisted in `src/lib/config.ts`. Every outbound request uses HTTPS, an `AbortSignal` timeout and the shared safe-fetch wrapper. Air and weather calls use a 5-second timeout; LLM calls use 55 seconds.
 
 The air-quality request asks for current `us_aqi`, `pm2_5` and `pm10`, plus hourly `pm2_5` and `us_aqi` for two forecast days in the location's timezone. The weather request asks for current `temperature_2m`, `relative_humidity_2m` and `wind_speed_10m`.
 
@@ -472,7 +472,7 @@ A healthy probe looks like:
 }
 ```
 
-The plan and ask routes allow up to 30 seconds (`maxDuration = 30`). The in-memory rate limiter resets when a serverless instance is replaced. That is acceptable for burst protection but not for a shared production quota; a Redis or Upstash-backed limiter is the future fix.
+The plan and ask routes allow up to 60 seconds (`maxDuration = 60`). The in-memory rate limiter resets when a serverless instance is replaced. That is acceptable for burst protection but not for a shared production quota; a Redis or Upstash-backed limiter is the future fix.
 
 ## Limitations and future work
 

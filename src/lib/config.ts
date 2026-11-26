@@ -46,7 +46,7 @@ export const UPSTREAM_TIMEOUT_MS = 5_000;
 /**
  * Maximum time to wait for a language-model response.
  */
-export const LLM_TIMEOUT_MS = 25_000;
+export const LLM_TIMEOUT_MS = 55_000;
 
 /**
  * How long upstream air and weather responses stay cached, in seconds.

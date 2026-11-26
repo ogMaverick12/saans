@@ -25,7 +25,7 @@ async function handlePlan(request: PlanRequest): Promise<GeneratedPlan> {
 /**
  * Allows the plan call to finish within Vercel's function limit.
  */
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 /**
  * POST /api/plan
