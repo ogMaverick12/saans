@@ -1,21 +1,15 @@
 import { z } from "zod";
 import { AirDigestSchema } from "@/lib/api/client-schemas";
 import { FACTOR_IDS } from "@/lib/impact/impact-factors";
+import {
+  AreaSchema,
+  CostSchema,
+  EffortSchema,
+  TimeBlockSchema,
+} from "@/lib/plan-enums";
 
 const PERCENT_MIN = 0;
 const PERCENT_MAX = 100;
-
-const TimeBlockSchema = z.enum([
-  "early_morning",
-  "morning",
-  "midday",
-  "afternoon",
-  "evening",
-  "night",
-]);
-const CostSchema = z.enum(["free", "low", "medium", "high"]);
-const EffortSchema = z.enum(["easy", "moderate", "involved"]);
-const AreaSchema = z.enum(["commute", "cooking", "heating", "waste", "energy"]);
 
 const ExposureReductionSchema = z.object({
   kind: z.literal("exposure_reduction"),

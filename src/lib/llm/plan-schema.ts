@@ -1,4 +1,10 @@
 import { z } from "zod";
+import {
+  AreaSchema,
+  CostSchema,
+  EffortSchema,
+  TimeBlockSchema,
+} from "@/lib/plan-enums";
 
 const TITLE_MAX_CHARS = 80;
 const TEXT_MAX_CHARS = 280;
@@ -9,18 +15,6 @@ const MAX_FOLLOW_UPS = 3;
 const titleSchema = z.string().trim().min(1).max(TITLE_MAX_CHARS);
 const textSchema = z.string().trim().min(1).max(TEXT_MAX_CHARS);
 const factorIdsSchema = z.array(z.string().trim().min(1));
-
-const TimeBlockSchema = z.enum([
-  "early_morning",
-  "morning",
-  "midday",
-  "afternoon",
-  "evening",
-  "night",
-]);
-const CostSchema = z.enum(["free", "low", "medium", "high"]);
-const EffortSchema = z.enum(["easy", "moderate", "involved"]);
-const AreaSchema = z.enum(["commute", "cooking", "heating", "waste", "energy"]);
 
 const AirSummarySchema = z.strictObject({
   headline: titleSchema,
