@@ -228,7 +228,7 @@ The plan and answer schemas enforce:
 - 4–6 daily-routine items, 3–6 indoor hacks, 3–5 sustainable alternatives and 2–4 community actions;
 - titles up to 80 characters and body text up to 280 characters;
 - at most three actions per routine item;
-- a nullable `doctorNote` and nullable `sensitiveGroupNote`;
+- a nullable `doctorNote` and a nullable `airSummary.sensitiveGroupNote`;
 - an answer up to 600 characters and at most three follow-up suggestions.
 
 ### The model chooses; the code supplies numbers
