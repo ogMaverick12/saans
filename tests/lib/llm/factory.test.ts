@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { LlmEnv } from "@/lib/config";
+import type { LlmEnv } from "@/lib/env";
 import { createLlmClient, FallbackLlmClient } from "@/lib/llm/factory";
 import type { FetchLike } from "@/lib/security/safe-fetch";
 import { FakeLlmClient, jsonResponse } from "./test-data";

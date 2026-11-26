@@ -14,8 +14,8 @@ const mocks = vi.hoisted(() => ({
 vi.mock("@/lib/air/get-digest", () => ({
   getAirDigest: mocks.getAirDigest,
 }));
-vi.mock("@/lib/config", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/lib/config")>();
+vi.mock("@/lib/env", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/env")>();
   return { ...actual, getLlmEnv: mocks.getLlmEnv };
 });
 vi.mock("@/lib/llm/factory", () => ({

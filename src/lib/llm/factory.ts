@@ -1,4 +1,4 @@
-import type { LlmEnv } from "@/lib/config";
+import type { LlmEnv } from "@/lib/env";
 import { AppError } from "@/lib/errors";
 import type { FetchLike } from "@/lib/security/safe-fetch";
 import type { LlmClient, LlmRequest } from "@/lib/llm/client";

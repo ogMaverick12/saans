@@ -1,7 +1,7 @@
 import { vi } from "vitest";
 import type { HealthDependencies } from "@/lib/api/health";
 import type { HealthClientEntry } from "@/lib/api/health-clients";
-import type { LlmEnv } from "@/lib/config";
+import type { LlmEnv } from "@/lib/env";
 import { FakeLlmClient } from "../llm/test-data";
 
 /**

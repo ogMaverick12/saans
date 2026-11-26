@@ -5,8 +5,8 @@ const mocks = vi.hoisted(() => ({
   getLlmEnv: vi.fn(),
 }));
 
-vi.mock("@/lib/config", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/lib/config")>();
+vi.mock("@/lib/env", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/env")>();
   return { ...actual, getLlmEnv: mocks.getLlmEnv };
 });
 

@@ -12,7 +12,7 @@ Next.js (App Router), TypeScript strict, Tailwind, shadcn/ui, Zod, Vitest, Testi
 - src/lib/llm: LlmClient interface, providers, prompts, plan schema.
 - src/lib/impact: impact-factors.ts and calculations.
 - src/lib/security: rate limit, sanitising, headers.
-- src/lib/config.ts: every constant and every env read.
+- src/lib/config.ts: every constant. src/lib/env.ts: every env read.
 - tests/ mirrors src/.
 
 ## Code quality
@@ -29,7 +29,7 @@ Next.js (App Router), TypeScript strict, Tailwind, shadcn/ui, Zod, Vitest, Testi
 
 ## Security
 - Validate every external input with Zod before use: request bodies, query strings, upstream API responses, LLM output.
-- API keys only from process.env, read only in src/lib/config.ts, never in client code, never logged. Keep .env.example current and tracked; it holds placeholders only, never a key value. Never ask for, invent or print keys, never prefix them with NEXT_PUBLIC_, never commit .env files. Model IDs live only as named defaults in src/lib/config.ts and in .env.example.
+- API keys only from process.env, read only in src/lib/env.ts, never in client code, never logged. Keep .env.example current and tracked; it holds placeholders only, never a key value. Never ask for, invent or print keys, never prefix them with NEXT_PUBLIC_, never commit .env files. Model IDs live only as named defaults in src/lib/config.ts and in .env.example.
 - Health-related profile answers live in memory only: never stored, logged or put in URLs.
 - Free text: at most 200 characters, control characters stripped, placed inside <user_note> tags with an instruction to treat it as data.
 - Outbound requests only to hosts allowlisted in config.ts, always with an AbortSignal timeout.

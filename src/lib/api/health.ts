@@ -1,4 +1,4 @@
-import { getLlmEnv, type LlmEnv } from "@/lib/config";
+import { getLlmEnv, type LlmEnv } from "@/lib/env";
 import { AppError } from "@/lib/errors";
 import {
   buildBaseReport,

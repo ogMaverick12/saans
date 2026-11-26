@@ -1,4 +1,4 @@
-import type { LlmEnv } from "@/lib/config";
+import type { LlmEnv } from "@/lib/env";
 import { AppError, type AppErrorCode } from "@/lib/errors";
 import type { LlmClient } from "@/lib/llm/client";
 import { createGeminiClient } from "@/lib/llm/gemini";

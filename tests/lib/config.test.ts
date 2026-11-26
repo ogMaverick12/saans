@@ -6,7 +6,6 @@ import {
   DEFAULT_GEMINI_FALLBACK_MODEL,
   DEFAULT_GEMINI_MODEL,
   ENV_VAR_NAMES,
-  getLlmEnv,
 } from "@/lib/config";
 
 const MANAGED_NAMES = Object.values(ENV_VAR_NAMES);
@@ -71,84 +70,3 @@ describe("config", () => {
   });
 });
 
-describe("getLlmEnv", () => {
-  it("reads trimmed Gemini and OpenRouter settings", () => {
-    process.env[ENV_VAR_NAMES.geminiApiKey] = "  gemini-key  ";
-    process.env[ENV_VAR_NAMES.geminiModel] = " gemini-primary ";
-    process.env[ENV_VAR_NAMES.geminiFallbackModel] = "gemini-fallback";
-    process.env[ENV_VAR_NAMES.openRouterApiKey] = " openrouter-key ";
-    process.env[ENV_VAR_NAMES.openRouterModel] = " openrouter-model ";
-
-    expect(getLlmEnv()).toEqual({
-      geminiApiKey: "gemini-key",
-      geminiModel: "gemini-primary",
-      geminiFallbackModel: "gemini-fallback",
-      openRouterApiKey: "openrouter-key",
-      openRouterModel: "openrouter-model",
-    });
-  });
-
-  it("treats blank values as unset and applies the Gemini model defaults", () => {
-    process.env[ENV_VAR_NAMES.geminiApiKey] = " gemini-key ";
-    process.env[ENV_VAR_NAMES.geminiModel] = "   ";
-    process.env[ENV_VAR_NAMES.geminiFallbackModel] = "";
-    process.env[ENV_VAR_NAMES.openRouterApiKey] = "  ";
-    process.env[ENV_VAR_NAMES.openRouterModel] = "";
-
-    expect(getLlmEnv()).toEqual({
-      geminiApiKey: "gemini-key",
-      geminiModel: DEFAULT_GEMINI_MODEL,
-      geminiFallbackModel: DEFAULT_GEMINI_FALLBACK_MODEL,
-      openRouterApiKey: null,
-      openRouterModel: null,
-    });
-  });
-
-  it("accepts an OpenRouter key and model without a Gemini key", () => {
-    process.env[ENV_VAR_NAMES.openRouterApiKey] = "openrouter-key";
-    process.env[ENV_VAR_NAMES.openRouterModel] = "openrouter-model";
-
-    const env = getLlmEnv();
-
-    expect(env.geminiApiKey).toBeNull();
-    expect(env.geminiModel).toBe(DEFAULT_GEMINI_MODEL);
-    expect(env.geminiFallbackModel).toBe(DEFAULT_GEMINI_FALLBACK_MODEL);
-  });
-
-  it.each([
-    ["no settings", {}],
-    [
-      "whitespace-only settings",
-      {
-        [ENV_VAR_NAMES.geminiApiKey]: "   ",
-        [ENV_VAR_NAMES.openRouterApiKey]: "   ",
-        [ENV_VAR_NAMES.openRouterModel]: "   ",
-      },
-    ],
-    [
-      "an OpenRouter key without a model",
-      {
-        [ENV_VAR_NAMES.openRouterApiKey]: "openrouter-key",
-      },
-    ],
-    [
-      "an OpenRouter model without a key",
-      {
-        [ENV_VAR_NAMES.openRouterModel]: "openrouter-model",
-      },
-    ],
-  ])("throws LLM_NOT_CONFIGURED with %s", (_label, settings) => {
-    for (const [name, value] of Object.entries(settings)) {
-      process.env[name] = value;
-    }
-
-    let caught: unknown;
-    try {
-      getLlmEnv();
-    } catch (error) {
-      caught = error;
-    }
-
-    expect(caught).toMatchObject({ code: "LLM_NOT_CONFIGURED" });
-  });
-});

@@ -136,7 +136,8 @@ src/
     profile/           profile schema, options and form mapping
     security/          allowlist, headers, rate limit, sanitising
     abort.ts           shared abort detection
-    config.ts          every constant and env read
+    config.ts          every named constant
+    env.ts             every environment read
     errors.ts          typed AppError with safe messages
     logger.ts          logger that never records request bodies
     place-search.ts    search status and announcements
@@ -312,7 +313,7 @@ The digest contains the current PM2.5, US AQI, US category, optional CPCB catego
 ## Security measures
 
 - **Validation at every boundary.** Request bodies and query strings, upstream API responses, LLM output and browser responses are parsed with Zod. Invalid input gets a safe `VALIDATION_FAILED` response.
-- **Secrets.** API keys are read only in `src/lib/config.ts` from `process.env`, never exposed to client code, never logged and never committed. `.env.example` holds placeholders only. No key is prefixed with `NEXT_PUBLIC_`.
+- **Secrets.** API keys are read only in `src/lib/env.ts` from `process.env`, never exposed to client code, never logged and never committed. `.env.example` holds placeholders only. No key is prefixed with `NEXT_PUBLIC_`.
 - **Health data stays in memory.** Profile answers are held in React state and sent in the request body. They are not stored in a database, not written to logs and not put in URLs.
 - **Free text.** The optional note is capped at 200 characters in the browser with a live counter and tells users not to include names, addresses or medical details. On the server, control characters and angle brackets are stripped, whitespace is collapsed, and the note is placed inside `<user_note>` tags with an instruction to treat it as data. Follow-up questions use the same treatment with a 300-character limit and `<question>` tags.
 - **Outbound requests.** Host allowlist, HTTPS only and an `AbortSignal` timeout on every call.
