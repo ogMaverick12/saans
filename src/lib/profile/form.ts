@@ -10,6 +10,9 @@ import type {
   HouseholdMember,
 } from "@/lib/profile/schema";
 
+/**
+ * Selectable profile options and their display labels.
+ */
 export {
   BUDGET_OPTIONS,
   COMMUTE_OPTIONS,
@@ -19,6 +22,7 @@ export {
   HOUSEHOLD_OPTIONS,
   LANGUAGE_OPTIONS,
 } from "@/lib/profile/options";
+/** One selectable profile option with its value and label. */
 export type { ProfileOption } from "@/lib/profile/options";
 
 /**

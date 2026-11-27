@@ -14,11 +14,17 @@ import { jsonPost, requestJson } from "@/lib/api/client-request";
 import type { AskRequest, PlanRequest, PlaceInput } from "@/lib/api/schemas";
 import { AskSchema, type Ask } from "@/lib/llm/plan-schema";
 
+/**
+ * Client error type and helpers shared by every API call.
+ */
 export {
   ClientError,
   isAbortError,
   toClientMessage,
 } from "@/lib/api/client-errors";
+/**
+ * Error and request-option types used by the browser client.
+ */
 export type {
   ClientErrorCode,
   ClientFetch,
