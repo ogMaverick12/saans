@@ -7,9 +7,7 @@ const PERCENT = 100;
 const ROUNDING_FACTOR = 10;
 const INDOOR_GROUPS = ["cleaner", "ventilation", "cooking"] as const;
 
-/**
- * Hours per day spent outdoors by commute mode.
- */
+/** Hours per day spent outdoors by commute mode. */
 export const OUTDOOR_HOURS_BY_COMMUTE: Readonly<Record<Commute, number>> = {
   walk: 2,
   cycle: 2,
@@ -20,14 +18,10 @@ export const OUTDOOR_HOURS_BY_COMMUTE: Readonly<Record<Commute, number>> = {
   car: 1,
 };
 
-/**
- * Fraction of outdoor PM2.5 that reaches indoor air.
- */
+/** Fraction of outdoor PM2.5 that reaches indoor air. */
 export const INDOOR_INFILTRATION = 0.7;
 
-/**
- * Result of comparing baseline exposure with selected factors.
- */
+/** Result of comparing baseline exposure with selected factors. */
 export interface ExposureEstimate {
   baselineUgM3: number;
   adjustedUgM3: number;
@@ -75,13 +69,21 @@ function combinedReduction(factors: readonly ImpactFactor[]): number {
   );
 }
 
-function exposureAt(
-  outdoorHours: number,
-  outdoorPm25: number,
-  indoorPm25: number,
-  maskReduction: number,
-  indoorReduction: number,
-): number {
+interface ExposureAtOptions {
+  outdoorHours: number;
+  outdoorPm25: number;
+  indoorPm25: number;
+  maskReduction: number;
+  indoorReduction: number;
+}
+
+function exposureAt({
+  outdoorHours,
+  outdoorPm25,
+  indoorPm25,
+  maskReduction,
+  indoorReduction,
+}: ExposureAtOptions): number {
   const outdoor = outdoorHours * outdoorPm25 * (1 - maskReduction);
   const indoor = (HOURS_PER_DAY - outdoorHours) * indoorPm25;
   return (outdoor + indoor * (1 - indoorReduction)) / HOURS_PER_DAY;
@@ -119,20 +121,20 @@ export function calculateExposure(
     : digest.dailyMeanPm25;
   const indoorPm25 = digest.dailyMeanPm25 * INDOOR_INFILTRATION;
   const outdoorHours = OUTDOOR_HOURS_BY_COMMUTE[profile.commute];
-  const baseline = exposureAt(
+  const baseline = exposureAt({
     outdoorHours,
-    digest.dailyMeanPm25,
+    outdoorPm25: digest.dailyMeanPm25,
     indoorPm25,
-    0,
-    0,
-  );
-  const adjusted = exposureAt(
+    maskReduction: 0,
+    indoorReduction: 0,
+  });
+  const adjusted = exposureAt({
     outdoorHours,
     outdoorPm25,
     indoorPm25,
-    mask ? typicalPct(mask) / PERCENT : 0,
-    combinedReduction(indoor),
-  );
+    maskReduction: mask ? typicalPct(mask) / PERCENT : 0,
+    indoorReduction: combinedReduction(indoor),
+  });
 
   return {
     baselineUgM3: roundOne(baseline),

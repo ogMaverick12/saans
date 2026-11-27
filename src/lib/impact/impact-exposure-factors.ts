@@ -5,14 +5,26 @@ import type {
   ImpactScope,
 } from "@/lib/impact/impact-types";
 
-function exposureFactor(
-  id: FactorId,
-  group: ImpactGroup,
-  appliesTo: ImpactScope,
-  label: string,
-  [lowPct, typicalPct, highPct]: readonly [number, number, number],
-  source: string,
-): ImpactFactor {
+interface BaseFactorInput {
+  id: FactorId;
+  group: ImpactGroup;
+  appliesTo: ImpactScope;
+  label: string;
+  source: string;
+}
+
+interface ExposureFactorInput extends BaseFactorInput {
+  reduction: readonly [number, number, number];
+}
+
+function exposureFactor({
+  id,
+  group,
+  appliesTo,
+  label,
+  reduction: [lowPct, typicalPct, highPct],
+  source,
+}: ExposureFactorInput): ImpactFactor {
   return {
     id,
     label,
@@ -24,13 +36,13 @@ function exposureFactor(
   };
 }
 
-function computedFactor(
-  id: FactorId,
-  group: ImpactGroup,
-  appliesTo: ImpactScope,
-  label: string,
-  source: string,
-): ImpactFactor {
+function computedFactor({
+  id,
+  group,
+  appliesTo,
+  label,
+  source,
+}: BaseFactorInput): ImpactFactor {
   return {
     id,
     label,
@@ -46,75 +58,77 @@ function computedFactor(
  * Mask, cleaner, ventilation, cooking and timing factors.
  */
 export const EXPOSURE_FACTORS: readonly ImpactFactor[] = [
-  exposureFactor(
-    "n95-mask",
-    "mask",
-    "outdoor",
-    "Wear a well-fitted N95 or FFP2 mask",
-    [50, 80, 95],
-    "N95 or FFP2 filters at least 95 percent of fine particles when fitted well; leaks at the edge are the limit",
-  ),
-  exposureFactor(
-    "surgical-mask",
-    "mask",
-    "outdoor",
-    "Wear a surgical mask",
-    [5, 20, 35],
-    "Loose masks leave gaps and give modest protection",
-  ),
-  exposureFactor(
-    "cloth-mask",
-    "mask",
-    "outdoor",
-    "Wear a cloth mask",
-    [0, 10, 25],
-    "Cloth masks filter fine particles poorly",
-  ),
-  exposureFactor(
-    "hepa-purifier",
-    "cleaner",
-    "indoor",
-    "Run a HEPA air purifier",
-    [40, 60, 80],
-    "HEPA purifier sized for the room, run with doors and windows closed",
-  ),
-  exposureFactor(
-    "diy-box-fan-filter",
-    "cleaner",
-    "indoor",
-    "Make a box-fan filter",
-    [30, 50, 70],
-    "Box fan with a MERV 13 filter, the Corsi-Rosenthal design",
-  ),
-  exposureFactor(
-    "seal-windows-at-peak",
-    "ventilation",
-    "indoor",
-    "Keep windows closed at peak pollution",
-    [20, 40, 60],
-    "Closing windows and gaps while outdoor PM2.5 peaks",
-  ),
-  exposureFactor(
-    "cooking-exhaust",
-    "cooking",
-    "indoor",
-    "Use an exhaust fan while cooking",
-    [20, 40, 60],
-    "Exhaust fan or chimney venting outdoors while cooking",
-  ),
-  exposureFactor(
-    "clean-cooking-fuel",
-    "cooking",
-    "indoor",
-    "Use clean cooking fuel",
-    [40, 60, 90],
-    "Switching from biomass to LPG, piped gas or induction",
-  ),
-  computedFactor(
-    "shift-outdoor-activity",
-    "timing",
-    "outdoor",
-    "Move outdoor activity to the cleanest hours",
-    "Compares the cleanest forecast window with the daily mean",
-  ),
+  exposureFactor({
+    id: "n95-mask",
+    group: "mask",
+    appliesTo: "outdoor",
+    label: "Wear a well-fitted N95 or FFP2 mask",
+    reduction: [50, 80, 95],
+    source:
+      "N95 or FFP2 filters at least 95 percent of fine particles when fitted well; leaks at the edge are the limit",
+  }),
+  exposureFactor({
+    id: "surgical-mask",
+    group: "mask",
+    appliesTo: "outdoor",
+    label: "Wear a surgical mask",
+    reduction: [5, 20, 35],
+    source: "Loose masks leave gaps and give modest protection",
+  }),
+  exposureFactor({
+    id: "cloth-mask",
+    group: "mask",
+    appliesTo: "outdoor",
+    label: "Wear a cloth mask",
+    reduction: [0, 10, 25],
+    source: "Cloth masks filter fine particles poorly",
+  }),
+  exposureFactor({
+    id: "hepa-purifier",
+    group: "cleaner",
+    appliesTo: "indoor",
+    label: "Run a HEPA air purifier",
+    reduction: [40, 60, 80],
+    source:
+      "HEPA purifier sized for the room, run with doors and windows closed",
+  }),
+  exposureFactor({
+    id: "diy-box-fan-filter",
+    group: "cleaner",
+    appliesTo: "indoor",
+    label: "Make a box-fan filter",
+    reduction: [30, 50, 70],
+    source: "Box fan with a MERV 13 filter, the Corsi-Rosenthal design",
+  }),
+  exposureFactor({
+    id: "seal-windows-at-peak",
+    group: "ventilation",
+    appliesTo: "indoor",
+    label: "Keep windows closed at peak pollution",
+    reduction: [20, 40, 60],
+    source: "Closing windows and gaps while outdoor PM2.5 peaks",
+  }),
+  exposureFactor({
+    id: "cooking-exhaust",
+    group: "cooking",
+    appliesTo: "indoor",
+    label: "Use an exhaust fan while cooking",
+    reduction: [20, 40, 60],
+    source: "Exhaust fan or chimney venting outdoors while cooking",
+  }),
+  exposureFactor({
+    id: "clean-cooking-fuel",
+    group: "cooking",
+    appliesTo: "indoor",
+    label: "Use clean cooking fuel",
+    reduction: [40, 60, 90],
+    source: "Switching from biomass to LPG, piped gas or induction",
+  }),
+  computedFactor({
+    id: "shift-outdoor-activity",
+    group: "timing",
+    appliesTo: "outdoor",
+    label: "Move outdoor activity to the cleanest hours",
+    source: "Compares the cleanest forecast window with the daily mean",
+  }),
 ];
