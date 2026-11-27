@@ -1,4 +1,5 @@
 import type { ZodError } from "zod";
+import { FREE_TEXT_MAX_CHARS } from "@/lib/config";
 import type { Language, ReadingMode } from "@/lib/llm/prompts";
 import type {
   Budget,
@@ -80,7 +81,7 @@ const PROFILE_FIELD_MESSAGES: Readonly<Record<string, string>> = {
   cookingFuel: "Choose your main cooking fuel.",
   heating: "Choose your main heating source.",
   budget: "Choose a budget for extra measures.",
-  note: "Keep your note within 200 characters.",
+  note: `Keep your note within ${FREE_TEXT_MAX_CHARS} characters.`,
 };
 
 /**

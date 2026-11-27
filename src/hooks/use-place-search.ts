@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { isAbortError, searchPlaces, toClientMessage } from "@/lib/api/client";
 import type { ClientGeocodeMatch } from "@/lib/api/client-schemas";
+import { SEARCH_DEBOUNCE_MS } from "@/lib/config";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import {
   MIN_PLACE_QUERY_CHARS,
   type PlaceSearchStatus,
 } from "@/lib/place-search";
-
-const SEARCH_DEBOUNCE_MS = 300;
 
 /**
  * The state of a debounced place search.

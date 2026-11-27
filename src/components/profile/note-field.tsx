@@ -16,7 +16,7 @@ export interface NoteFieldProps {
 }
 
 /**
- * Renders the optional 200-character household note with a counter.
+ * Renders the optional household note with a character counter.
  */
 export function NoteField({ value, onChange, error }: NoteFieldProps) {
   const describedBy =

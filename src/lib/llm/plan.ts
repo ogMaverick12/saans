@@ -1,4 +1,8 @@
 import type { AirDigest } from "@/lib/air/schemas";
+import {
+  ASK_MAX_OUTPUT_TOKENS,
+  PLAN_MAX_OUTPUT_TOKENS,
+} from "@/lib/config";
 import { attachImpact, type AttachedImpactItem } from "@/lib/impact/estimate";
 import { IMPACT_FACTORS } from "@/lib/impact/impact-factors";
 import type { LlmClient } from "@/lib/llm/client";
@@ -20,9 +24,6 @@ import {
   type ReadingMode,
 } from "@/lib/llm/prompts";
 import type { Profile } from "@/lib/profile/schema";
-
-const PLAN_MAX_OUTPUT_TOKENS = 4_096;
-const ASK_MAX_OUTPUT_TOKENS = 1_024;
 
 /**
  * A plan whose factor IDs have been replaced with catalog factors.

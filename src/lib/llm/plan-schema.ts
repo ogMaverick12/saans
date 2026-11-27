@@ -1,16 +1,18 @@
 import { z } from "zod";
 import {
+  ANSWER_MAX_CHARS,
+  MAX_ACTIONS,
+  MAX_FOLLOW_UPS,
+  PLAN_ITEM_COUNTS,
+  TEXT_MAX_CHARS,
+  TITLE_MAX_CHARS,
+} from "@/lib/config";
+import {
   AreaSchema,
   CostSchema,
   EffortSchema,
   TimeBlockSchema,
 } from "@/lib/plan-enums";
-
-const TITLE_MAX_CHARS = 80;
-const TEXT_MAX_CHARS = 280;
-const ANSWER_MAX_CHARS = 600;
-const MAX_ACTIONS = 3;
-const MAX_FOLLOW_UPS = 3;
 
 const titleSchema = z.string().trim().min(1).max(TITLE_MAX_CHARS);
 const textSchema = z.string().trim().min(1).max(TEXT_MAX_CHARS);
@@ -55,10 +57,22 @@ const CommunityActionSchema = z.strictObject({
  */
 export const PlanSchema = z.strictObject({
   airSummary: AirSummarySchema,
-  dailyRoutine: z.array(DailyRoutineItemSchema).min(4).max(6),
-  indoorHacks: z.array(IndoorHackSchema).min(3).max(6),
-  sustainableAlternatives: z.array(SustainableAlternativeSchema).min(3).max(5),
-  communityActions: z.array(CommunityActionSchema).min(2).max(4),
+  dailyRoutine: z
+    .array(DailyRoutineItemSchema)
+    .min(PLAN_ITEM_COUNTS.dailyRoutine.min)
+    .max(PLAN_ITEM_COUNTS.dailyRoutine.max),
+  indoorHacks: z
+    .array(IndoorHackSchema)
+    .min(PLAN_ITEM_COUNTS.indoorHacks.min)
+    .max(PLAN_ITEM_COUNTS.indoorHacks.max),
+  sustainableAlternatives: z
+    .array(SustainableAlternativeSchema)
+    .min(PLAN_ITEM_COUNTS.sustainableAlternatives.min)
+    .max(PLAN_ITEM_COUNTS.sustainableAlternatives.max),
+  communityActions: z
+    .array(CommunityActionSchema)
+    .min(PLAN_ITEM_COUNTS.communityActions.min)
+    .max(PLAN_ITEM_COUNTS.communityActions.max),
   doctorNote: textSchema.nullable(),
 });
 

@@ -1,13 +1,16 @@
 import type { AirDigest } from "@/lib/air/schemas";
-import { ASK_QUESTION_MAX_CHARS } from "@/lib/config";
+import {
+  ANSWER_MAX_CHARS,
+  ASK_QUESTION_MAX_CHARS,
+  MAX_FOLLOW_UPS,
+  PLAN_ITEM_COUNTS,
+} from "@/lib/config";
 import type { ImpactFactor } from "@/lib/impact/impact-factors";
 import type { Plan } from "@/lib/llm/plan-schema";
 import type { Profile } from "@/lib/profile/schema";
 import { sanitizeFreeText } from "@/lib/security/sanitize";
 
-/**
- * A language the plan or answer may be written in.
- */
+/** A language the plan or answer may be written in. */
 export type Language = "en" | "hi" | "bn";
 
 /** How plainly the plan should be written. */
@@ -45,6 +48,10 @@ const LANGUAGE_NAMES: Readonly<Record<Language, string>> = {
   bn: "Bengali",
 };
 
+const ITEM_COUNTS = Object.entries(PLAN_ITEM_COUNTS)
+  .map(([section, { min, max }]) => `${section} ${min}-${max}`)
+  .join(", ");
+
 const SYSTEM_RULES = [
   "You are Saans, an air-quality assistant for families and communities.",
   "Use only the numbers in the air digest; never invent statistics, sources, or health claims.",
@@ -67,11 +74,9 @@ const PLAN_SHAPE = `JSON shape:
 "indoorHacks":[{"title":string,"howTo":string,"cost":"free"|"low"|"medium"|"high","effort":"easy"|"moderate"|"involved","factorIds":[string]}],
 "sustainableAlternatives":[{"area":"commute"|"cooking"|"heating"|"waste"|"energy","swap":string,"whyItHelps":string,"communityBenefit":string,"factorIds":[string]}],
 "communityActions":[{"title":string,"description":string}],"doctorNote":string|null}
-Item counts: dailyRoutine 4-6, indoorHacks 3-6, sustainableAlternatives 3-5, communityActions 2-4.`;
+Item counts: ${ITEM_COUNTS}.`;
 
-/**
- * Builds the numbered system rules with the language and reading mode.
- */
+/** Builds the numbered system rules with the language and reading mode. */
 function buildSystem(language: Language, readingMode?: ReadingMode): string {
   const rules = SYSTEM_RULES.map((rule, index) => `${index + 1}. ${rule}`).join(
     "\n",
@@ -81,23 +86,17 @@ function buildSystem(language: Language, readingMode?: ReadingMode): string {
   return `${rules}\nRequested language: ${LANGUAGE_NAMES[language]} (${language}).${mode}`;
 }
 
-/**
- * Serialises the profile without its note so the note only appears inside tags.
- */
+/** Serialises the profile without its note so the note only appears inside tags. */
 function profileJson(profile: Profile): string {
   return JSON.stringify({ ...profile, note: undefined });
 }
 
-/**
- * Formats the factor catalog as one id and label per line.
- */
+/** Formats the factor catalog as one id and label per line. */
 function formatCatalog(catalog: readonly FactorCatalogEntry[]): string {
   return catalog.map((factor) => `${factor.id}: ${factor.label}`).join("\n");
 }
 
-/**
- * Builds the system and user prompt for one household plan.
- */
+/** Builds the system and user prompt for one household plan. */
 export function buildPlanPrompt(input: PlanPromptInput): Prompt {
   const { digest, profile, language, readingMode, factorCatalog } = input;
   const safeNote =
@@ -124,9 +123,7 @@ export function buildPlanPrompt(input: PlanPromptInput): Prompt {
   return { system: buildSystem(language, readingMode), user };
 }
 
-/**
- * Builds the system and user prompt for one follow-up question.
- */
+/** Builds the system and user prompt for one follow-up question. */
 export function buildAskPrompt(input: AskPromptInput): Prompt {
   const { question, digest, plan, language } = input;
   const user = [
@@ -140,7 +137,7 @@ export function buildAskPrompt(input: AskPromptInput): Prompt {
     `<question>${sanitizeFreeText(question, ASK_QUESTION_MAX_CHARS)}</question>`,
     "",
     `Answer in ${LANGUAGE_NAMES[language]}.`,
-    'JSON shape: {"answer":string,"followUps":[string]} with answer up to 600 characters and at most three follow-ups.',
+    `JSON shape: {"answer":string,"followUps":[string]} with answer up to ${ANSWER_MAX_CHARS} characters and at most ${MAX_FOLLOW_UPS} follow-ups.`,
     "Return only the JSON object.",
   ].join("\n");
   return { system: buildSystem(language), user };
