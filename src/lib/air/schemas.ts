@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { AqiCategory } from "@/lib/air/aqi-scales";
 
 /**
  * One raw result from the Open-Meteo geocoding API.
@@ -81,44 +80,4 @@ export interface GeocodeMatch {
   countryCode: string | null;
   country: string | null;
   admin1: string | null;
-}
-
-/**
- * Direction of the six-hour PM2.5 trend.
- */
-export type AirTrend = "improving" | "steady" | "worsening";
-
-/**
- * A three-hour local window with its mean PM2.5.
- */
-export interface AirWindow {
-  startHour: number;
-  endHour: number;
-  meanPm25: number;
-}
-
-/**
- * Current weather values used by the digest.
- */
-export interface WeatherSnapshot {
-  tempC: number;
-  humidityPct: number;
-  windKmh: number;
-}
-
-/**
- * Compact, prompt-ready summary of today's air for one place.
- */
-export interface AirDigest {
-  observedAt: string;
-  pm2_5: number;
-  usAqi: number;
-  usCategory: AqiCategory;
-  cpcbCategory: AqiCategory | null;
-  dailyMeanPm25: number;
-  trend: AirTrend;
-  cleanestWindow: AirWindow;
-  worstWindow: AirWindow;
-  weather: WeatherSnapshot;
-  smogCues: string[];
 }

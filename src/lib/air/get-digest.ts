@@ -1,6 +1,7 @@
 import { analyzeAir } from "@/lib/air/analyze";
 import { fetchAirQuality, fetchWeather } from "@/lib/air/clients";
-import type { AirDigest, GeocodeMatch } from "@/lib/air/schemas";
+import type { AirDigest } from "@/lib/air/digest-schema";
+import type { GeocodeMatch } from "@/lib/air/schemas";
 import type { FetchLike } from "@/lib/security/safe-fetch";
 
 /**

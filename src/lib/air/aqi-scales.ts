@@ -1,15 +1,9 @@
-/**
- * One of the six air quality levels shared by the US AQI and CPCB scales.
- */
-export type AqiLevel = 0 | 1 | 2 | 3 | 4 | 5;
+import type { AqiCategory } from "@/lib/air/digest-schema";
 
 /**
- * A category label paired with its severity level.
+ * AQI level and category types shared with the digest schema.
  */
-export interface AqiCategory {
-  label: string;
-  level: AqiLevel;
-}
+export type { AqiCategory, AqiLevel } from "@/lib/air/digest-schema";
 
 /**
  * Maps a US AQI value to its category and severity level.

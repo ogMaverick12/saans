@@ -3,7 +3,7 @@ import { AqiBadge } from "@/components/aqi-badge";
 import { AQI_BORDER_CLASSES } from "@/components/aqi-styles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatAirWindow, formatPm25, trendText } from "@/lib/air/format";
-import type { AirDigest } from "@/lib/air/schemas";
+import type { AirDigest } from "@/lib/air/digest-schema";
 
 /**
  * Props for the current air summary card.

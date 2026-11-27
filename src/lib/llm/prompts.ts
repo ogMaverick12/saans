@@ -1,4 +1,4 @@
-import type { AirDigest } from "@/lib/air/schemas";
+import type { AirDigest } from "@/lib/air/digest-schema";
 import {
   ANSWER_MAX_CHARS,
   ASK_QUESTION_MAX_CHARS,

@@ -5,8 +5,8 @@ import {
   computeTrend,
   findWindow,
 } from "@/lib/air/hourly";
+import type { AirDigest } from "@/lib/air/digest-schema";
 import type {
-  AirDigest,
   AirQualityResponse,
   GeocodeMatch,
   WeatherResponse,

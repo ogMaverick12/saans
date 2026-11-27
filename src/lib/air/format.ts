@@ -1,4 +1,4 @@
-import type { AirTrend, AirWindow } from "@/lib/air/schemas";
+import type { AirTrend, AirWindow } from "@/lib/air/digest-schema";
 
 const HOURS_PER_DAY = 24;
 const HOURS_PER_HALF_DAY = 12;

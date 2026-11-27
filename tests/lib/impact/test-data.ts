@@ -1,4 +1,4 @@
-import type { AirDigest } from "@/lib/air/schemas";
+import type { AirDigest } from "@/lib/air/digest-schema";
 import type { Commute, Profile } from "@/lib/profile/schema";
 
 /**

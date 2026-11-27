@@ -1,4 +1,4 @@
-import type { AirDigest } from "@/lib/air/schemas";
+import type { AirDigest } from "@/lib/air/digest-schema";
 import { ASK_MAX_OUTPUT_TOKENS, PLAN_MAX_OUTPUT_TOKENS } from "@/lib/config";
 import { attachImpact, type AttachedImpactItem } from "@/lib/impact/estimate";
 import { IMPACT_FACTORS } from "@/lib/impact/impact-factors";

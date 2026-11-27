@@ -1,5 +1,5 @@
 import { getAirDigest } from "@/lib/air/get-digest";
-import type { AirDigest } from "@/lib/air/schemas";
+import type { AirDigest } from "@/lib/air/digest-schema";
 import { withApiGuard } from "@/lib/api/guard";
 import { apiRateLimiter } from "@/lib/api/rate-limit";
 import { PRIVATE_CACHE_CONTROL } from "@/lib/api/responses";

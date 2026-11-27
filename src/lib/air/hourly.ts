@@ -1,8 +1,5 @@
-import type {
-  AirQualityResponse,
-  AirTrend,
-  AirWindow,
-} from "@/lib/air/schemas";
+import type { AirTrend, AirWindow } from "@/lib/air/digest-schema";
+import type { AirQualityResponse } from "@/lib/air/schemas";
 
 const WINDOW_HOURS = 3;
 const TREND_WINDOW_HOURS = 6;
