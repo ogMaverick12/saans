@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { AirDigestSchema } from "@/lib/api/client-schemas";
-import { FACTOR_IDS } from "@/lib/impact/impact-types";
+import { FACTOR_IDS, IMPACT_GROUPS } from "@/lib/impact/impact-types";
 import {
   AreaSchema,
   CostSchema,
@@ -46,16 +46,7 @@ const ImpactEffectSchema = z.discriminatedUnion("kind", [
 export const ImpactFactorSchema = z.object({
   id: z.enum(FACTOR_IDS),
   label: z.string().min(1),
-  group: z.enum([
-    "mask",
-    "cleaner",
-    "ventilation",
-    "cooking",
-    "timing",
-    "commute",
-    "waste",
-    "housekeeping",
-  ]),
+  group: IMPACT_GROUPS,
   appliesTo: z.enum(["outdoor", "indoor", "trip"]),
   effect: ImpactEffectSchema,
   source: z.string().min(1),

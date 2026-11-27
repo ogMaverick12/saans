@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 /**
  * Every factor identifier the plan and what-if panel may use.
  */
@@ -29,17 +31,23 @@ export type FactorId = (typeof FACTOR_IDS)[number];
 export type ImpactScope = "outdoor" | "indoor" | "trip";
 
 /**
+ * Habit groups an impact factor can belong to.
+ */
+export const IMPACT_GROUPS = z.enum([
+  "mask",
+  "cleaner",
+  "ventilation",
+  "cooking",
+  "timing",
+  "commute",
+  "waste",
+  "housekeeping",
+]);
+
+/**
  * The habit group a factor belongs to.
  */
-export type ImpactGroup =
-  | "mask"
-  | "cleaner"
-  | "ventilation"
-  | "cooking"
-  | "timing"
-  | "commute"
-  | "waste"
-  | "housekeeping";
+export type ImpactGroup = z.infer<typeof IMPACT_GROUPS>;
 
 /**
  * How strongly the catalog stands behind a factor.
