@@ -3,11 +3,8 @@ import {
   calculateExposure,
   type ExposureEstimate,
 } from "@/lib/impact/exposure";
-import {
-  getFactor,
-  IMPACT_FACTORS,
-  type ImpactFactor,
-} from "@/lib/impact/impact-factors";
+import { getFactor, IMPACT_FACTORS } from "@/lib/impact/impact-factors";
+import type { ImpactFactor } from "@/lib/impact/impact-types";
 import type { Profile } from "@/lib/profile/schema";
 
 export {

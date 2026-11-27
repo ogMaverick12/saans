@@ -1,6 +1,6 @@
 import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
 import { EXPOSURE_FACTORS } from "@/lib/impact/impact-exposure-factors";
-import type { ImpactFactor, ImpactGroup } from "@/lib/impact/impact-factors";
+import type { ImpactFactor, ImpactGroup } from "@/lib/impact/impact-types";
 import { collectPlanFactors } from "@/lib/impact/plan-factors";
 
 /**

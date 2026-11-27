@@ -1,4 +1,4 @@
-import type { ImpactFactor } from "@/lib/impact/impact-factors";
+import type { ImpactFactor } from "@/lib/impact/impact-types";
 
 /**
  * Props for one attached impact factor.

@@ -3,7 +3,7 @@ import type {
   ImpactFactor,
   ImpactGroup,
   ImpactScope,
-} from "@/lib/impact/impact-factors";
+} from "@/lib/impact/impact-types";
 
 const VEHICLE_SOURCE =
   "Typical per-passenger emission factors; varies by vehicle";

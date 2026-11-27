@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { LIFESTYLE_FACTORS } from "@/lib/impact/impact-lifestyle-factors";
-import type { ImpactFactor } from "@/lib/impact/impact-factors";
+import type { ImpactFactor } from "@/lib/impact/impact-types";
 
 const TRIP_CASES = [
   { id: "walk-or-cycle", kg: 1.7 },

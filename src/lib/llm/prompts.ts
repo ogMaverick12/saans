@@ -5,7 +5,7 @@ import {
   MAX_FOLLOW_UPS,
   PLAN_ITEM_COUNTS,
 } from "@/lib/config";
-import type { ImpactFactor } from "@/lib/impact/impact-factors";
+import type { ImpactFactor } from "@/lib/impact/impact-types";
 import type { Plan } from "@/lib/llm/plan-schema";
 import type { Profile } from "@/lib/profile/schema";
 import { sanitizeFreeText } from "@/lib/security/sanitize";

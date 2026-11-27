@@ -1,5 +1,5 @@
 import type { AirDigest } from "@/lib/air/schemas";
-import type { ImpactFactor, ImpactGroup } from "@/lib/impact/impact-factors";
+import type { ImpactFactor, ImpactGroup } from "@/lib/impact/impact-types";
 import type { Commute, Profile } from "@/lib/profile/schema";
 
 const HOURS_PER_DAY = 24;

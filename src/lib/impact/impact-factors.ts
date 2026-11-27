@@ -1,80 +1,20 @@
 import { EXPOSURE_FACTORS } from "@/lib/impact/impact-exposure-factors";
 import { LIFESTYLE_FACTORS } from "@/lib/impact/impact-lifestyle-factors";
+import {
+  FACTOR_IDS,
+  type FactorId,
+  type ImpactFactor,
+} from "@/lib/impact/impact-types";
 
-/**
- * Every factor identifier the plan and what-if panel may use.
- */
-export const FACTOR_IDS = [
-  "n95-mask",
-  "surgical-mask",
-  "cloth-mask",
-  "hepa-purifier",
-  "diy-box-fan-filter",
-  "seal-windows-at-peak",
-  "cooking-exhaust",
-  "clean-cooking-fuel",
-  "shift-outdoor-activity",
-  "walk-or-cycle",
-  "metro-or-bus",
-  "carpool",
-  "avoid-open-burning",
-  "wet-mop-dust",
-] as const;
-
-/**
- * One factor identifier from the catalog.
- */
-export type FactorId = (typeof FACTOR_IDS)[number];
-
-/**
- * Where a factor's benefit is felt.
- */
-export type ImpactScope = "outdoor" | "indoor" | "trip";
-
-/**
- * The habit group a factor belongs to.
- */
-export type ImpactGroup =
-  | "mask"
-  | "cleaner"
-  | "ventilation"
-  | "cooking"
-  | "timing"
-  | "commute"
-  | "waste"
-  | "housekeeping";
-
-/**
- * How strongly the catalog stands behind a factor.
- */
-export type ImpactConfidence = "approximate" | "qualitative";
-
-/**
- * The numeric or descriptive effect attached to a factor.
- */
-export type ImpactEffect =
-  | {
-      kind: "exposure_reduction";
-      lowPct: number;
-      typicalPct: number;
-      highPct: number;
-    }
-  | { kind: "emission_avoided"; kgCo2ePerTrip: number }
-  | { kind: "computed" }
-  | { kind: "qualitative"; note: string };
-
-/**
- * One entry in the impact catalog.
- */
-export interface ImpactFactor {
-  id: FactorId;
-  label: string;
-  group: ImpactGroup;
-  appliesTo: ImpactScope;
-  effect: ImpactEffect;
-  source: string;
-  confidence: ImpactConfidence;
-}
+export { FACTOR_IDS } from "@/lib/impact/impact-types";
+export type {
+  FactorId,
+  ImpactConfidence,
+  ImpactEffect,
+  ImpactFactor,
+  ImpactGroup,
+  ImpactScope,
+} from "@/lib/impact/impact-types";
 
 /**
  * The approximate impact catalog used by plans and the what-if panel.

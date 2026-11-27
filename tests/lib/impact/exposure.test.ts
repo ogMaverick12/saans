@@ -4,7 +4,8 @@ import {
   INDOOR_INFILTRATION,
   OUTDOOR_HOURS_BY_COMMUTE,
 } from "@/lib/impact/exposure";
-import { getFactor, type ImpactFactor } from "@/lib/impact/impact-factors";
+import { getFactor } from "@/lib/impact/impact-factors";
+import type { ImpactFactor } from "@/lib/impact/impact-types";
 import { buildDigest, buildProfile } from "./test-data";
 
 /**
