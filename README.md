@@ -6,6 +6,7 @@ The plan is written by a language model at request time from live air data and t
 
 - **Live demo:** <https://saans-orpin.vercel.app>
 - **Repository:** <https://github.com/ogMaverick12/saans>
+- **Build plan:** [docs/build-plan.md](docs/build-plan.md) — the original specification and implementation plan.
 
 The hosted demo uses the same code as this repository. The LLM-backed plan and Ask Saans flows require an LLM provider key (`GEMINI_API_KEY`, or `OPENROUTER_API_KEY` with `OPENROUTER_MODEL`) to be configured in Vercel; see [Deployment on Vercel](#deployment-on-vercel).
 
