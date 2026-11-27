@@ -14,7 +14,7 @@ export const PRIVATE_CACHE_CONTROL = "private, max-age=300";
 /**
  * Fallback Retry-After value when an error does not carry a delay.
  */
-export const DEFAULT_RETRY_AFTER_SECONDS = 60;
+const DEFAULT_RETRY_AFTER_SECONDS = 60;
 
 /**
  * Message shown when an unexpected error reaches the API boundary.

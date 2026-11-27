@@ -24,7 +24,7 @@ export const AqiLevelSchema = z.union([
 /**
  * A category label paired with its severity level.
  */
-export const AqiCategorySchema = z.object({
+const AqiCategorySchema = z.object({
   label: z.string().min(1),
   level: AqiLevelSchema,
 });
@@ -44,7 +44,7 @@ export const GeocodeMatchSchema = z.object({
 /**
  * A three-hour local window with its mean PM2.5.
  */
-export const AirWindowSchema = z.object({
+const AirWindowSchema = z.object({
   startHour: z.number().int().min(0).max(24),
   endHour: z.number().int().min(0).max(24),
   meanPm25: z.number().nonnegative(),
@@ -53,7 +53,7 @@ export const AirWindowSchema = z.object({
 /**
  * Current weather values used by the digest.
  */
-export const WeatherSnapshotSchema = z.object({
+const WeatherSnapshotSchema = z.object({
   tempC: z.number(),
   humidityPct: z.number().min(MIN_HUMIDITY).max(MAX_HUMIDITY),
   windKmh: z.number().nonnegative(),

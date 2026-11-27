@@ -4,7 +4,7 @@ import type { AqiCategory } from "@/lib/air/aqi-scales";
 /**
  * One raw result from the Open-Meteo geocoding API.
  */
-export const geocodingResultSchema = z.object({
+const geocodingResultSchema = z.object({
   name: z.string(),
   latitude: z.number(),
   longitude: z.number(),

@@ -45,7 +45,7 @@ export const AirQuerySchema = z.object({
 /**
  * A place selected in the browser.
  */
-export const PlaceSchema = z.object({
+const PlaceSchema = z.object({
   name: z.string().trim().min(1).max(MAX_PLACE_NAME_CHARS),
   latitude: z.number().min(-90).max(90),
   longitude: z.number().min(-180).max(180),
@@ -55,12 +55,12 @@ export const PlaceSchema = z.object({
 /**
  * Language shared by plan and ask requests.
  */
-export const LanguageSchema = z.enum(["en", "hi", "bn"]);
+const LanguageSchema = z.enum(["en", "hi", "bn"]);
 
 /**
  * Reading mode shared by plan requests.
  */
-export const ReadingModeSchema = z.enum(["standard", "simple"]);
+const ReadingModeSchema = z.enum(["standard", "simple"]);
 
 /**
  * Body for generating a household plan.

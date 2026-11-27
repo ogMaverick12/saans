@@ -1,5 +1,6 @@
 import type { Plan } from "@/lib/llm/plan-schema";
 import type { Language } from "@/lib/llm/prompts";
+import { TimeBlockSchema } from "@/lib/plan-enums";
 
 /**
  * One time-of-day block in the daily routine.
@@ -24,14 +25,7 @@ export type Area = Plan["sustainableAlternatives"][number]["area"];
 /**
  * Time blocks from earliest to latest.
  */
-export const TIME_BLOCK_ORDER: readonly TimeBlock[] = [
-  "early_morning",
-  "morning",
-  "midday",
-  "afternoon",
-  "evening",
-  "night",
-];
+const TIME_BLOCK_ORDER: readonly TimeBlock[] = TimeBlockSchema.options;
 
 /**
  * Readable labels for each time block.

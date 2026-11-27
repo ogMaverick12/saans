@@ -10,18 +10,10 @@ const PROBE_USER = "Reply with OK";
 const FALLBACK_FAILURE_CODE: AppErrorCode = "UPSTREAM_FAILED";
 
 /**
- * Names of the language-model clients reported by the health endpoint.
- */
-export const HEALTH_CLIENT_NAMES = [
-  "gemini-primary",
-  "gemini-fallback",
-  "openrouter",
-] as const;
-
-/**
  * One language-model client name.
  */
-export type HealthClientName = (typeof HEALTH_CLIENT_NAMES)[number];
+export type HealthClientName =
+  "gemini-primary" | "gemini-fallback" | "openrouter";
 
 /**
  * Status of one language-model client.

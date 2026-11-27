@@ -33,7 +33,7 @@ const QualitativeSchema = z.object({
 /**
  * The numeric or descriptive effect attached to an impact factor.
  */
-export const ImpactEffectSchema = z.discriminatedUnion("kind", [
+const ImpactEffectSchema = z.discriminatedUnion("kind", [
   ExposureReductionSchema,
   EmissionAvoidedSchema,
   ComputedSchema,
@@ -99,7 +99,7 @@ const CommunityActionSchema = z.object({
 /**
  * A plan whose factor IDs have been replaced with catalog factors.
  */
-export const PlanWithImpactSchema = z.object({
+const PlanWithImpactSchema = z.object({
   airSummary: AirSummarySchema,
   dailyRoutine: z.array(DailyRoutineItemSchema),
   indoorHacks: z.array(IndoorHackSchema),
