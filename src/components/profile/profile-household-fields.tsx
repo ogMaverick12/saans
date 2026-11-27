@@ -1,6 +1,5 @@
-import { CheckboxFieldset } from "@/components/profile/checkbox-fieldset";
+import { FieldsetGroup } from "@/components/profile/fieldset-group";
 import { HomeFieldset } from "@/components/profile/home-fieldset";
-import { RadioFieldset } from "@/components/profile/radio-fieldset";
 import type { ProfileFormValues } from "@/lib/profile/form";
 import {
   COMMUTE_OPTIONS,
@@ -31,7 +30,8 @@ export function ProfileHouseholdFields({
 }: ProfileHouseholdFieldsProps) {
   return (
     <>
-      <CheckboxFieldset
+      <FieldsetGroup
+        type="checkbox"
         id="profile-household"
         legend="Who lives in your household?"
         hint="Select any that apply."
@@ -41,7 +41,8 @@ export function ProfileHouseholdFields({
         error={errorFor("household")}
       />
 
-      <RadioFieldset
+      <FieldsetGroup
+        type="radio"
         id="profile-commute"
         name="commute"
         legend="How does your household usually travel?"
@@ -63,7 +64,8 @@ export function ProfileHouseholdFields({
         error={errorFor("homeType")}
       />
 
-      <RadioFieldset
+      <FieldsetGroup
+        type="radio"
         id="profile-cookingFuel"
         name="cookingFuel"
         legend="Main cooking fuel"
@@ -73,7 +75,8 @@ export function ProfileHouseholdFields({
         error={errorFor("cookingFuel")}
       />
 
-      <RadioFieldset
+      <FieldsetGroup
+        type="radio"
         id="profile-heating"
         name="heating"
         legend="Main heating source"

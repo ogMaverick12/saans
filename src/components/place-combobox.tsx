@@ -11,9 +11,16 @@ const SEARCH_HINT =
   "Type at least 2 characters, then use the arrow keys to choose a place.";
 
 /**
+ * Props for the place combobox.
+ */
+export interface PlaceComboboxProps {
+  controller: PlaceComboboxController;
+}
+
+/**
  * Renders the labelled combobox input and its result list.
  */
-export function PlaceCombobox(controller: PlaceComboboxController) {
+export function PlaceCombobox({ controller }: PlaceComboboxProps) {
   const {
     inputId,
     listboxId,

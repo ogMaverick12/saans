@@ -1,5 +1,5 @@
+import { FieldsetGroup } from "@/components/profile/fieldset-group";
 import { NoteField } from "@/components/profile/note-field";
-import { RadioFieldset } from "@/components/profile/radio-fieldset";
 import { SwitchField } from "@/components/profile/switch-field";
 import type { ProfileFormValues } from "@/lib/profile/form";
 import { BUDGET_OPTIONS, LANGUAGE_OPTIONS } from "@/lib/profile/form";
@@ -26,7 +26,8 @@ export function ProfilePreferences({
 }: ProfilePreferencesProps) {
   return (
     <>
-      <RadioFieldset
+      <FieldsetGroup
+        type="radio"
         id="profile-budget"
         name="budget"
         legend="Budget for extra measures"
@@ -36,7 +37,8 @@ export function ProfilePreferences({
         error={errorFor("budget")}
       />
 
-      <RadioFieldset
+      <FieldsetGroup
+        type="radio"
         id="profile-language"
         name="language"
         legend="Plan language"

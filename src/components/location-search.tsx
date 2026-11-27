@@ -20,7 +20,7 @@ export function LocationSearch({ onSelect }: LocationSearchProps) {
 
   return (
     <div className="space-y-4">
-      <PlaceCombobox {...combobox} />
+      <PlaceCombobox controller={combobox} />
       <LocationButton onLocated={combobox.selectPlace} />
     </div>
   );
