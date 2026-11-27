@@ -75,6 +75,40 @@ function ensureCapacity(
 }
 
 /**
+ * Returns a key's request timestamps that fall inside the current window.
+ */
+function recentTimestamps(
+  requestLog: RequestLog,
+  key: string,
+  windowStart: number,
+): number[] {
+  return (requestLog.get(key) ?? []).filter(
+    (timestamp) => timestamp > windowStart,
+  );
+}
+
+/**
+ * Builds the denial result for a key that has reached the request limit.
+ */
+function denialResult(
+  oldestTimestamp: number | undefined,
+  currentTime: number,
+  windowMs: number,
+): RateLimitResult {
+  const retryAfterMs =
+    oldestTimestamp === undefined
+      ? windowMs
+      : oldestTimestamp + windowMs - currentTime;
+  return {
+    allowed: false,
+    retryAfterSeconds: Math.max(
+      1,
+      Math.ceil(retryAfterMs / MILLISECONDS_PER_SECOND),
+    ),
+  };
+}
+
+/**
  * Creates an in-memory sliding-window rate limiter with a bounded key count.
  */
 export function createRateLimiter({
@@ -90,23 +124,9 @@ export function createRateLimiter({
       const windowStart = currentTime - windowMs;
       ensureCapacity(requestLog, key, windowStart);
 
-      const timestamps = (requestLog.get(key) ?? []).filter(
-        (timestamp) => timestamp > windowStart,
-      );
-      const oldestTimestamp = timestamps[0];
-
+      const timestamps = recentTimestamps(requestLog, key, windowStart);
       if (timestamps.length >= limit) {
-        const retryAfterMs =
-          oldestTimestamp === undefined
-            ? windowMs
-            : oldestTimestamp + windowMs - currentTime;
-        return {
-          allowed: false,
-          retryAfterSeconds: Math.max(
-            1,
-            Math.ceil(retryAfterMs / MILLISECONDS_PER_SECOND),
-          ),
-        };
+        return denialResult(timestamps[0], currentTime, windowMs);
       }
 
       timestamps.push(currentTime);

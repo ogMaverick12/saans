@@ -16,6 +16,12 @@ const UNAVAILABLE_MESSAGE =
   "Your location could not be determined. Search for a city instead.";
 const TIMEOUT_MESSAGE = "Location lookup timed out. Search for a city instead.";
 
+const GEOLOCATION_OPTIONS: PositionOptions = {
+  enableHighAccuracy: false,
+  maximumAge: GEOLOCATION_MAX_AGE_MS,
+  timeout: GEOLOCATION_TIMEOUT_MS,
+};
+
 /**
  * The state of a one-shot geolocation request.
  */
@@ -49,6 +55,18 @@ function messageForError(error: GeolocationPositionError): string {
 }
 
 /**
+ * Converts a browser position into the place sent to the API.
+ */
+function positionToPlace(position: GeolocationPosition): PlaceInput {
+  return {
+    name: "Your location",
+    latitude: roundCoordinate(position.coords.latitude),
+    longitude: roundCoordinate(position.coords.longitude),
+    countryCode: null,
+  };
+}
+
+/**
  * Requests the browser location only when the caller asks for it.
  */
 export function useGeolocation(onLocated: (place: PlaceInput) => void) {
@@ -67,21 +85,12 @@ export function useGeolocation(onLocated: (place: PlaceInput) => void) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setState({ locating: false, error: null });
-        onLocated({
-          name: "Your location",
-          latitude: roundCoordinate(position.coords.latitude),
-          longitude: roundCoordinate(position.coords.longitude),
-          countryCode: null,
-        });
+        onLocated(positionToPlace(position));
       },
       (error) => {
         setState({ locating: false, error: messageForError(error) });
       },
-      {
-        enableHighAccuracy: false,
-        maximumAge: GEOLOCATION_MAX_AGE_MS,
-        timeout: GEOLOCATION_TIMEOUT_MS,
-      },
+      GEOLOCATION_OPTIONS,
     );
   }, [onLocated]);
 
