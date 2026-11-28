@@ -51,6 +51,45 @@ function rejectOnAbort(signal: AbortSignal): Promise<never> {
 }
 
 /**
+ * Runs fetch with a hard timeout and rejects when the signal aborts.
+ */
+async function fetchWithTimeout(
+  target: URL,
+  init: RequestInit,
+  timeoutMs: number,
+  fetchImpl: FetchLike,
+): Promise<Response> {
+  const signal = AbortSignal.timeout(timeoutMs);
+  return Promise.race([
+    fetchImpl(target, { ...init, signal }),
+    rejectOnAbort(signal),
+  ]);
+}
+
+/**
+ * Turns a non-2xx response into a safe upstream error.
+ */
+function assertOkResponse(response: Response): Response {
+  if (!response.ok) {
+    throw new AppError("UPSTREAM_FAILED", FAILED_MESSAGE);
+  }
+  return response;
+}
+
+/**
+ * Maps any fetch failure to a safe timeout or upstream error.
+ */
+function throwSafeFetchError(error: unknown): never {
+  if (error instanceof AppError) {
+    throw error;
+  }
+  if (isAbortError(error)) {
+    throw new AppError("UPSTREAM_TIMEOUT", TIMEOUT_MESSAGE);
+  }
+  throw new AppError("UPSTREAM_FAILED", FAILED_MESSAGE);
+}
+
+/**
  * Fetches an allowlisted HTTPS URL with a hard timeout and safe error mapping.
  */
 export async function safeFetch(
@@ -61,23 +100,10 @@ export async function safeFetch(
   const target = parseUpstreamUrl(url);
   assertAllowedHost(target);
 
-  const signal = AbortSignal.timeout(timeoutMs);
   try {
-    const response = await Promise.race([
-      fetchImpl(target, { ...init, signal }),
-      rejectOnAbort(signal),
-    ]);
-    if (!response.ok) {
-      throw new AppError("UPSTREAM_FAILED", FAILED_MESSAGE);
-    }
-    return response;
+    const response = await fetchWithTimeout(target, init, timeoutMs, fetchImpl);
+    return assertOkResponse(response);
   } catch (error) {
-    if (error instanceof AppError) {
-      throw error;
-    }
-    if (isAbortError(error)) {
-      throw new AppError("UPSTREAM_TIMEOUT", TIMEOUT_MESSAGE);
-    }
-    throw new AppError("UPSTREAM_FAILED", FAILED_MESSAGE);
+    throwSafeFetchError(error);
   }
 }

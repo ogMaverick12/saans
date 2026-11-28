@@ -57,6 +57,44 @@ function readConfiguredEnv(): LlmEnv | null {
 }
 
 /**
+ * Returns a cached probe report when probing is enabled and the cache is warm.
+ */
+function cachedProbeReport(
+  probe: boolean,
+  now: () => number,
+): HealthReport | null {
+  if (!probe || probeCache === null) {
+    return null;
+  }
+  return probeCache.expiresAt > now() ? probeCache.report : null;
+}
+
+/**
+ * Builds the configured client entries, or none when no provider is set.
+ */
+function configuredEntries(
+  env: LlmEnv | null,
+  createClients: (env: LlmEnv) => HealthClientEntry[],
+): HealthClientEntry[] {
+  return env === null ? [] : createClients(env);
+}
+
+/**
+ * Probes every entry, caches the report and returns it.
+ */
+async function probeReport(
+  entries: readonly HealthClientEntry[],
+  now: () => number,
+): Promise<HealthReport> {
+  const report: HealthReport = {
+    clients: await probeEntries(entries),
+    probed: true,
+  };
+  probeCache = { report, expiresAt: now() + PROBE_CACHE_MS };
+  return report;
+}
+
+/**
  * Reports client configuration and optionally probes each configured client.
  */
 export async function checkHealth(
@@ -66,23 +104,17 @@ export async function checkHealth(
   const readEnv = deps.readEnv ?? readConfiguredEnv;
   const createClients = deps.createClients ?? buildClientEntries;
   const now = deps.now ?? Date.now;
+  const cached = cachedProbeReport(probe, now);
 
-  if (probe && probeCache !== null && probeCache.expiresAt > now()) {
-    return probeCache.report;
+  if (cached !== null) {
+    return cached;
   }
 
-  const env = readEnv();
-  const entries = env === null ? [] : createClients(env);
+  const entries = configuredEntries(readEnv(), createClients);
   if (!probe) {
     return { clients: buildBaseReport(entries), probed: false };
   }
-
-  const report: HealthReport = {
-    clients: await probeEntries(entries),
-    probed: true,
-  };
-  probeCache = { report, expiresAt: now() + PROBE_CACHE_MS };
-  return report;
+  return probeReport(entries, now);
 }
 
 /**

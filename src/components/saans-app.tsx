@@ -4,15 +4,11 @@ import "@/lib/zod-config";
 
 import dynamic from "next/dynamic";
 import { useRef } from "react";
-import { AirCard } from "@/components/air-card";
-import { AirCardSkeleton } from "@/components/air-card-skeleton";
-import { ErrorNotice } from "@/components/error-notice";
+import { AirSection } from "@/components/air-section";
 import { LocationSearch } from "@/components/location-search";
-import { PlanSkeleton } from "@/components/plan-skeleton";
+import { PlanSection } from "@/components/plan-section";
 import { usePlanFlow } from "@/hooks/use-plan-flow";
 import type { PlanFlowState } from "@/lib/plan-flow";
-
-const FALLBACK_ERROR_MESSAGE = "Please try again.";
 
 const ProfileForm = dynamic(
   () =>
@@ -25,11 +21,6 @@ const ProfileForm = dynamic(
       </p>
     ),
   },
-);
-
-const PlanResult = dynamic(
-  () => import("@/components/plan-result").then((module) => module.PlanResult),
-  { ssr: false },
 );
 
 /**
@@ -59,10 +50,6 @@ export function SaansApp() {
   const { state, selectPlace, generatePlan, retry } = usePlanFlow();
   const planHeadingRef = useRef<HTMLHeadingElement | null>(null);
 
-  const showAirError = state.status === "error" && state.errorSource === "air";
-  const showPlanError =
-    state.status === "error" && state.errorSource === "plan";
-
   return (
     <div className="space-y-8">
       <section
@@ -83,15 +70,7 @@ export function SaansApp() {
         {announcementFor(state)}
       </p>
 
-      {state.status === "airLoading" && <AirCardSkeleton />}
-      {state.air !== null && <AirCard digest={state.air} />}
-      {showAirError && (
-        <ErrorNotice
-          title="We could not load today's air"
-          message={state.error ?? FALLBACK_ERROR_MESSAGE}
-          onRetry={retry}
-        />
-      )}
+      <AirSection state={state} onRetry={retry} />
 
       {state.air !== null && (
         <section
@@ -115,28 +94,7 @@ export function SaansApp() {
         </section>
       )}
 
-      {state.status === "planLoading" && <PlanSkeleton />}
-      {showPlanError && (
-        <ErrorNotice
-          title="We could not write your plan"
-          message={state.error ?? FALLBACK_ERROR_MESSAGE}
-          onRetry={retry}
-        />
-      )}
-      {state.status === "planReady" &&
-        state.plan !== null &&
-        state.air !== null &&
-        state.profile !== null &&
-        state.place !== null && (
-          <PlanResult
-            plan={state.plan}
-            digest={state.air}
-            profile={state.profile}
-            place={state.place}
-            language={state.planLanguage}
-            headingRef={planHeadingRef}
-          />
-        )}
+      <PlanSection state={state} onRetry={retry} headingRef={planHeadingRef} />
     </div>
   );
 }

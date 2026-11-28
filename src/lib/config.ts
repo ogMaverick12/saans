@@ -82,6 +82,9 @@ export const ASK_MAX_OUTPUT_TOKENS = 1_024;
 /** Delay before a place search runs, in milliseconds. */
 export const SEARCH_DEBOUNCE_MS = 300;
 
+/** Fallback message when a flow error has no safe message. */
+export const FALLBACK_ERROR_MESSAGE = "Please try again.";
+
 /** Requests allowed per client IP per minute for every API route. */
 export const RATE_LIMIT_PER_MINUTE = 20;
 

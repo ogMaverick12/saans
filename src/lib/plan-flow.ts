@@ -74,6 +74,63 @@ export const INITIAL_PLAN_FLOW_STATE: PlanFlowState = {
   planLanguage: "en",
 };
 
+type PlanFlowHandler = (
+  state: PlanFlowState,
+  action: PlanFlowAction,
+) => PlanFlowState;
+
+const PLAN_FLOW_HANDLERS: {
+  [K in PlanFlowAction["type"]]: (
+    state: PlanFlowState,
+    action: Extract<PlanFlowAction, { type: K }>,
+  ) => PlanFlowState;
+} = {
+  PLACE_SELECTED: (_state, action) => ({
+    ...INITIAL_PLAN_FLOW_STATE,
+    status: "placeSelected",
+    place: action.place,
+  }),
+  AIR_LOADING: (state) => ({
+    ...state,
+    status: "airLoading",
+    plan: null,
+    error: null,
+    errorSource: null,
+  }),
+  AIR_READY: (state, action) => ({
+    ...state,
+    status: "airReady",
+    air: action.air,
+    error: null,
+    errorSource: null,
+  }),
+  PLAN_LOADING: (state, action) => ({
+    ...state,
+    status: "planLoading",
+    plan: null,
+    error: null,
+    errorSource: null,
+    planLanguage: action.language,
+    profile: action.profile,
+  }),
+  PLAN_READY: (state, action) => ({
+    ...state,
+    status: "planReady",
+    plan: action.plan,
+    air: action.digest,
+    error: null,
+    errorSource: null,
+  }),
+  FAILED: (state, action) => ({
+    ...state,
+    status: "error",
+    error: action.message,
+    errorSource: action.source,
+    plan: action.source === "plan" ? null : state.plan,
+  }),
+  RESET: () => INITIAL_PLAN_FLOW_STATE,
+};
+
 /**
  * Applies one action to the plan flow without side effects.
  */
@@ -81,57 +138,6 @@ export function planFlowReducer(
   state: PlanFlowState,
   action: PlanFlowAction,
 ): PlanFlowState {
-  switch (action.type) {
-    case "PLACE_SELECTED":
-      return {
-        ...INITIAL_PLAN_FLOW_STATE,
-        status: "placeSelected",
-        place: action.place,
-      };
-    case "AIR_LOADING":
-      return {
-        ...state,
-        status: "airLoading",
-        plan: null,
-        error: null,
-        errorSource: null,
-      };
-    case "AIR_READY":
-      return {
-        ...state,
-        status: "airReady",
-        air: action.air,
-        error: null,
-        errorSource: null,
-      };
-    case "PLAN_LOADING":
-      return {
-        ...state,
-        status: "planLoading",
-        plan: null,
-        error: null,
-        errorSource: null,
-        planLanguage: action.language,
-        profile: action.profile,
-      };
-    case "PLAN_READY":
-      return {
-        ...state,
-        status: "planReady",
-        plan: action.plan,
-        air: action.digest,
-        error: null,
-        errorSource: null,
-      };
-    case "FAILED":
-      return {
-        ...state,
-        status: "error",
-        error: action.message,
-        errorSource: action.source,
-        plan: action.source === "plan" ? null : state.plan,
-      };
-    case "RESET":
-      return INITIAL_PLAN_FLOW_STATE;
-  }
+  const handler = PLAN_FLOW_HANDLERS[action.type] as PlanFlowHandler;
+  return handler(state, action);
 }
