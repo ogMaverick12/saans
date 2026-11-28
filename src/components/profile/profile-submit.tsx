@@ -1,8 +1,5 @@
 import { Button } from "@/components/ui/button";
 
-/**
- * Props for the form's privacy note and submit button.
- */
 export interface ProfileSubmitProps {
   isSubmitting: boolean;
 }

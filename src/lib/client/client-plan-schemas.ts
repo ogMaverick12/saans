@@ -107,17 +107,8 @@ export const PlanResponseSchema = z.object({
   digest: AirDigestSchema,
 });
 
-/**
- * One impact factor parsed from the browser API.
- */
 export type ClientImpactFactor = z.infer<typeof ImpactFactorSchema>;
 
-/**
- * A plan with attached impact factors parsed from the browser API.
- */
 export type ClientPlanWithImpact = z.infer<typeof PlanWithImpactSchema>;
 
-/**
- * The plan route response parsed in the browser.
- */
 export type ClientPlanResponse = z.infer<typeof PlanResponseSchema>;

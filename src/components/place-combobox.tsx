@@ -10,9 +10,6 @@ const NO_RESULTS_MESSAGE = "No places found. Try a nearby city or district.";
 const SEARCH_HINT =
   "Type at least 2 characters, then use the arrow keys to choose a place.";
 
-/**
- * Props for the place combobox.
- */
 export interface PlaceComboboxProps {
   controller: PlaceComboboxController;
 }

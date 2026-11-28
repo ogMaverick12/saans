@@ -60,9 +60,6 @@ export const AirDigestSchema = z.object({
   smogCues: z.array(z.string()),
 });
 
-/**
- * One of the six AQI severity levels.
- */
 export type AqiLevel = z.infer<typeof AqiLevelSchema>;
 
 /**

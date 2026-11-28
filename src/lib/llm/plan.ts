@@ -42,9 +42,6 @@ export interface GeneratedPlan {
   digest: AirDigest;
 }
 
-/**
- * Inputs for generating one household plan.
- */
 export interface GeneratePlanDeps {
   client: LlmClient;
   digest: AirDigest;
@@ -54,9 +51,6 @@ export interface GeneratePlanDeps {
   factorCatalog?: readonly FactorCatalogEntry[];
 }
 
-/**
- * Inputs for answering one follow-up question about a plan.
- */
 export interface AnswerQuestionDeps {
   client: LlmClient;
   question: string;

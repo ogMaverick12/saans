@@ -2,9 +2,6 @@ import { RATE_LIMIT_MAX_KEYS } from "@/lib/config";
 
 const MILLISECONDS_PER_SECOND = 1_000;
 
-/**
- * Configuration for an in-memory sliding-window rate limiter.
- */
 export interface RateLimiterOptions {
   /** Maximum requests allowed inside the window. */
   limit: number;
@@ -14,9 +11,6 @@ export interface RateLimiterOptions {
   now?: () => number;
 }
 
-/**
- * Outcome of a rate-limit check.
- */
 export interface RateLimitResult {
   /** Whether the request may proceed. */
   allowed: boolean;

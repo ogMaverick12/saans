@@ -8,9 +8,6 @@ import {
   HOUSEHOLD_OPTIONS,
 } from "@/lib/profile/form";
 
-/**
- * Props for the household, travel and home fields.
- */
 export interface ProfileHouseholdFieldsProps {
   values: ProfileFormValues;
   errorFor: (field: string) => string | undefined;

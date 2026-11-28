@@ -6,9 +6,6 @@ const NOTE_HINT_ID = "profile-note-hint";
 const NOTE_COUNT_ID = "profile-note-count";
 const NOTE_ERROR_ID = "profile-note-error";
 
-/**
- * Props for the optional free-text note.
- */
 export interface NoteFieldProps {
   value: string;
   onChange: (value: string) => void;

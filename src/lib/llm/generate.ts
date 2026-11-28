@@ -10,9 +10,6 @@ const TIMEOUT_MESSAGE =
 const INVALID_JSON_SUMMARY = "The reply was not valid JSON.";
 const MAX_VALIDATION_LINES = 8;
 
-/**
- * One schema-backed generation request.
- */
 export interface StructuredRequestOptions<T> {
   client: LlmClient;
   schema: ZodType<T>;

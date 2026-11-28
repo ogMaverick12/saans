@@ -3,9 +3,6 @@ import { ImpactBadge } from "@/components/impact-badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { COST_LABELS, EFFORT_LABELS } from "@/components/plan/plan-display";
 
-/**
- * Props for the indoor air-quality hacks section.
- */
 export interface IndoorHacksProps {
   hacks: ClientPlanWithImpact["indoorHacks"];
 }

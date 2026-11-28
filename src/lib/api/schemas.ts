@@ -93,32 +93,14 @@ export const HealthQuerySchema = z.object({
   probe: z.literal("1").optional(),
 });
 
-/**
- * Validated city-search query.
- */
 export type GeocodeQuery = z.infer<typeof GeocodeQuerySchema>;
 
-/**
- * Validated air-digest query.
- */
 export type AirQuery = z.infer<typeof AirQuerySchema>;
 
-/**
- * Validated place input.
- */
 export type PlaceInput = z.infer<typeof PlaceSchema>;
 
-/**
- * Validated plan request.
- */
 export type PlanRequest = z.infer<typeof PlanRequestSchema>;
 
-/**
- * Validated ask request.
- */
 export type AskRequest = z.infer<typeof AskRequestSchema>;
 
-/**
- * Validated health query.
- */
 export type HealthQuery = z.infer<typeof HealthQuerySchema>;

@@ -7,9 +7,6 @@ import type { PlaceInput } from "@/lib/api/schemas";
 import type { Language } from "@/lib/llm/prompts";
 import type { Profile } from "@/lib/profile/schema";
 
-/**
- * Props for the generated plan and its follow-up question box.
- */
 export interface PlanResultProps {
   plan: ClientPlanWithImpact;
   digest: ClientAirDigest;

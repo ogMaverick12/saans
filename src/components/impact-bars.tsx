@@ -4,9 +4,6 @@ import type { ExposureEstimate } from "@/lib/impact/estimate";
 const PERCENT_MAX = 100;
 const PERCENT_MIN = 0;
 
-/**
- * Props for the baseline and adjusted exposure bars.
- */
 export interface ImpactBarsProps {
   estimate: ExposureEstimate;
 }

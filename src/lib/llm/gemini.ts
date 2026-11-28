@@ -26,9 +26,6 @@ const geminiResponseSchema = z.object({
     .min(1),
 });
 
-/**
- * Settings for a Gemini generateContent client.
- */
 export interface GeminiClientOptions {
   apiKey: string;
   model: string;

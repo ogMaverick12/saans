@@ -10,9 +10,6 @@ import {
   type ProfileSubmission,
 } from "@/hooks/use-profile-form";
 
-/**
- * Props for the household profile form.
- */
 export interface ProfileFormProps {
   onSubmit: (submission: ProfileSubmission) => void;
   isSubmitting: boolean;

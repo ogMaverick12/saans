@@ -4,9 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useGeolocation } from "@/hooks/use-geolocation";
 import type { PlaceInput } from "@/lib/api/schemas";
 
-/**
- * Props for the one-click geolocation button.
- */
 export interface LocationButtonProps {
   onLocated: (place: PlaceInput) => void;
 }

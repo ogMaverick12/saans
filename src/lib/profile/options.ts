@@ -16,9 +16,6 @@ export interface ProfileOption<T extends string> {
   label: string;
 }
 
-/**
- * Household members offered as checkboxes.
- */
 export const HOUSEHOLD_OPTIONS: readonly ProfileOption<HouseholdMember>[] = [
   { value: "young_children", label: "Young children" },
   { value: "older_adults", label: "Older adults" },
@@ -27,9 +24,6 @@ export const HOUSEHOLD_OPTIONS: readonly ProfileOption<HouseholdMember>[] = [
   { value: "heart_condition", label: "Heart condition" },
 ];
 
-/**
- * Everyday travel choices.
- */
 export const COMMUTE_OPTIONS: readonly ProfileOption<Commute>[] = [
   { value: "walk", label: "Walking" },
   { value: "cycle", label: "Cycling" },
@@ -40,18 +34,12 @@ export const COMMUTE_OPTIONS: readonly ProfileOption<Commute>[] = [
   { value: "work_from_home", label: "Work from home" },
 ];
 
-/**
- * Home type choices.
- */
 export const HOME_TYPE_OPTIONS: readonly ProfileOption<HomeType>[] = [
   { value: "apartment", label: "Apartment" },
   { value: "independent_house", label: "Independent house" },
   { value: "shared_room", label: "Shared room" },
 ];
 
-/**
- * Cooking fuel choices.
- */
 export const COOKING_FUEL_OPTIONS: readonly ProfileOption<CookingFuel>[] = [
   { value: "lpg", label: "LPG cylinder" },
   { value: "piped_gas", label: "Piped gas" },
@@ -60,9 +48,6 @@ export const COOKING_FUEL_OPTIONS: readonly ProfileOption<CookingFuel>[] = [
   { value: "other", label: "Other" },
 ];
 
-/**
- * Heating source choices.
- */
 export const HEATING_OPTIONS: readonly ProfileOption<Heating>[] = [
   { value: "none", label: "None" },
   { value: "electric", label: "Electric heater" },
@@ -70,18 +55,12 @@ export const HEATING_OPTIONS: readonly ProfileOption<Heating>[] = [
   { value: "wood_or_coal", label: "Wood or coal" },
 ];
 
-/**
- * Budget choices.
- */
 export const BUDGET_OPTIONS: readonly ProfileOption<Budget>[] = [
   { value: "low", label: "Low" },
   { value: "medium", label: "Medium" },
   { value: "high", label: "High" },
 ];
 
-/**
- * Plan language choices.
- */
 export const LANGUAGE_OPTIONS: readonly ProfileOption<Language>[] = [
   { value: "en", label: "English" },
   { value: "hi", label: "हिन्दी" },

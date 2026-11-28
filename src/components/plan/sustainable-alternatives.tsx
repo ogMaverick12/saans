@@ -3,9 +3,6 @@ import { ImpactBadge } from "@/components/impact-badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AREA_LABELS } from "@/components/plan/plan-display";
 
-/**
- * Props for the sustainable alternatives section.
- */
 export interface SustainableAlternativesProps {
   alternatives: ClientPlanWithImpact["sustainableAlternatives"];
 }

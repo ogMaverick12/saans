@@ -3,9 +3,6 @@ import { SwitchField } from "@/components/profile/switch-field";
 import { HOME_TYPE_OPTIONS } from "@/lib/profile/form";
 import type { HomeType } from "@/lib/profile/schema";
 
-/**
- * Props for the home type and appliance section.
- */
 export interface HomeFieldsetProps {
   homeType: HomeType | "";
   hasPurifier: boolean;

@@ -13,9 +13,6 @@ export const APP_ERROR_CODES = [
   "INTERNAL",
 ] as const;
 
-/**
- * One of the application's stable error codes.
- */
 export type AppErrorCode = (typeof APP_ERROR_CODES)[number];
 
 /**

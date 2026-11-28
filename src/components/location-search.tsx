@@ -5,9 +5,6 @@ import { PlaceCombobox } from "@/components/place-combobox";
 import { usePlaceCombobox } from "@/hooks/use-place-combobox";
 import type { PlaceInput } from "@/lib/api/schemas";
 
-/**
- * Props for the accessible place search combobox.
- */
 export interface LocationSearchProps {
   onSelect: (place: PlaceInput) => void;
 }

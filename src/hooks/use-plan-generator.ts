@@ -16,9 +16,6 @@ export interface PlanGenerator {
   cancelPlan: () => void;
 }
 
-/**
- * Inputs needed to start one plan request.
- */
 interface PlanRequestOptions {
   place: PlaceInput;
   input: GeneratePlanInput;

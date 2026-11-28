@@ -1,6 +1,3 @@
-/**
- * One request for a JSON reply from a language model.
- */
 export interface LlmRequest {
   system: string;
   user: string;

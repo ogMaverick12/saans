@@ -6,9 +6,6 @@ const MAX_LATITUDE = 90;
 const MIN_LONGITUDE = -180;
 const MAX_LONGITUDE = 180;
 
-/**
- * One place returned by the geocoding route.
- */
 export const GeocodeMatchSchema = z.object({
   name: z.string().min(1),
   latitude: z.number().min(MIN_LATITUDE).max(MAX_LATITUDE),
@@ -23,12 +20,6 @@ export const GeocodeMatchSchema = z.object({
  */
 export { AirDigestSchema, AqiLevelSchema };
 
-/**
- * A geocoding match parsed from the browser API.
- */
 export type ClientGeocodeMatch = z.infer<typeof GeocodeMatchSchema>;
 
-/**
- * An air digest parsed from the browser API.
- */
 export type ClientAirDigest = z.infer<typeof AirDigestSchema>;

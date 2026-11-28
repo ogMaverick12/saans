@@ -22,7 +22,6 @@ export {
   HOUSEHOLD_OPTIONS,
   LANGUAGE_OPTIONS,
 } from "@/lib/profile/options";
-/** One selectable profile option with its value and label. */
 export type { ProfileOption } from "@/lib/profile/options";
 
 /**

@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-/**
- * Props for a safe, retryable error message.
- */
 export interface ErrorNoticeProps {
   title: string;
   message: string;

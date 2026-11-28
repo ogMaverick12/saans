@@ -1,6 +1,3 @@
-/**
- * One HTTP security header emitted for every route.
- */
 export interface SecurityHeader {
   key: string;
   value: string;

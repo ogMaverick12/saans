@@ -4,9 +4,6 @@ import {
   exposureFactorsForGroup,
 } from "@/lib/impact/what-if";
 
-/**
- * Props for the what-if switch groups.
- */
 export interface WhatIfGroupsProps {
   selected: readonly string[];
   onToggle: (id: string, checked: boolean) => void;

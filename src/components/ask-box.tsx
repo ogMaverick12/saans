@@ -12,9 +12,6 @@ import { MAX_ASK_EXCHANGES } from "@/lib/config";
 import type { Ask } from "@/lib/llm/plan-schema";
 import type { Language } from "@/lib/llm/prompts";
 
-/**
- * Props for the follow-up question box.
- */
 export interface AskBoxProps {
   place: PlaceInput;
   plan: ClientPlanWithImpact;

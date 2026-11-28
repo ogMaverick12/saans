@@ -1,8 +1,5 @@
 import type { ClientImpactFactor } from "@/lib/client/client-plan-schemas";
 
-/**
- * Props for the plan's trip-emission factors.
- */
 export interface WhatIfTripsProps {
   factors: readonly ClientImpactFactor[];
 }

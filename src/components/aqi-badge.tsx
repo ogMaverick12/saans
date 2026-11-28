@@ -20,9 +20,6 @@ const AQI_ICONS: Readonly<Record<AqiLevel, LucideIcon>> = {
   5: ShieldAlert,
 };
 
-/**
- * Props for the coloured AQI category badge.
- */
 export interface AqiBadgeProps {
   category: AqiCategory;
 }

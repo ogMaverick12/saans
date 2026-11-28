@@ -1,9 +1,6 @@
 import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-/**
- * Props for the community actions section.
- */
 export interface CommunityActionsProps {
   actions: ClientPlanWithImpact["communityActions"];
 }

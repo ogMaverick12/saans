@@ -50,24 +50,12 @@ export const weatherResponseSchema = z.object({
   }),
 });
 
-/**
- * Parsed geocoding response.
- */
 export type GeocodingResponse = z.infer<typeof geocodingResponseSchema>;
 
-/**
- * One parsed geocoding result.
- */
 export type GeocodingResult = z.infer<typeof geocodingResultSchema>;
 
-/**
- * Parsed air quality response.
- */
 export type AirQualityResponse = z.infer<typeof airQualityResponseSchema>;
 
-/**
- * Parsed weather response.
- */
 export type WeatherResponse = z.infer<typeof weatherResponseSchema>;
 
 /**

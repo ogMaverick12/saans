@@ -12,9 +12,6 @@ import {
 const RATE_LIMIT_MESSAGE =
   "Too many requests. Please wait a moment and try again.";
 
-/**
- * Options for one guarded API route.
- */
 export interface ApiGuardOptions<TInput, TOutput> {
   schema: ZodType<TInput>;
   handler: (input: TInput) => TOutput | Promise<TOutput>;

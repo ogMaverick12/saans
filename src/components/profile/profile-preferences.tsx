@@ -4,9 +4,6 @@ import { SwitchField } from "@/components/profile/switch-field";
 import type { ProfileFormValues } from "@/lib/profile/form";
 import { BUDGET_OPTIONS, LANGUAGE_OPTIONS } from "@/lib/profile/form";
 
-/**
- * Props for the budget, language, reading mode and note fields.
- */
 export interface ProfilePreferencesProps {
   values: ProfileFormValues;
   errorFor: (field: string) => string | undefined;

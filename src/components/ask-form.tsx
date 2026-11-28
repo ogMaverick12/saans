@@ -11,9 +11,6 @@ const HINT_ID = "ask-hint";
 const COUNT_ID = "ask-count";
 const ERROR_ID = "ask-error";
 
-/**
- * Props for the follow-up question input.
- */
 export interface AskFormProps {
   question: string;
   isAsking: boolean;

@@ -1,6 +1,3 @@
-/**
- * Props for the plan's safety note.
- */
 export interface PlanSafetyNoteProps {
   doctorNote: string | null;
 }

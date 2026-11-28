@@ -6,9 +6,6 @@ import {
   TIME_BLOCK_LABELS,
 } from "@/components/plan/plan-display";
 
-/**
- * Props for the daily routine section.
- */
 export interface DailyRoutineProps {
   items: ClientPlanWithImpact["dailyRoutine"];
 }

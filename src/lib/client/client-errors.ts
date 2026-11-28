@@ -45,9 +45,6 @@ export type ClientFetch = (
   init?: RequestInit,
 ) => Promise<Response>;
 
-/**
- * Per-request options for the browser client.
- */
 export interface ClientRequestOptions {
   signal?: AbortSignal;
   fetchImpl?: ClientFetch;

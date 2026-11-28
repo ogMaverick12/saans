@@ -3,9 +3,6 @@ import { EXPOSURE_FACTORS } from "@/lib/impact/impact-exposure-factors";
 import type { ImpactFactor, ImpactGroup } from "@/lib/impact/impact-types";
 import { collectPlanFactors } from "@/lib/impact/plan-factors";
 
-/**
- * One switch group in the what-if panel.
- */
 export interface ExposureGroup {
   group: ImpactGroup;
   legend: string;

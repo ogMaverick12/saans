@@ -14,9 +14,6 @@ import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import type { Language } from "@/lib/llm/prompts";
 import type { Profile } from "@/lib/profile/schema";
 
-/**
- * Props for the full generated plan.
- */
 export interface PlanViewProps {
   plan: ClientPlanWithImpact;
   digest: ClientAirDigest;

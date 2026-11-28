@@ -5,9 +5,6 @@ import type { ClientGeocodeMatch } from "@/lib/client/client-schemas";
  */
 export const MIN_PLACE_QUERY_CHARS = 2;
 
-/**
- * The states a place search can be in.
- */
 export type PlaceSearchStatus = "idle" | "loading" | "success" | "error";
 
 /**

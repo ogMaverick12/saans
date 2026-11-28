@@ -20,9 +20,6 @@ const CAVEAT =
   "Estimate for today's forecast and your household. Real results depend on fit, room size and habits.";
 const DEDUPE_NOTE = "Counts once, with the stronger choice.";
 
-/**
- * Props for the in-browser exposure simulator.
- */
 export interface WhatIfPanelProps {
   digest: ClientAirDigest;
   profile: Profile;

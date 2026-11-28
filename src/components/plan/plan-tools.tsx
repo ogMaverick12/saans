@@ -3,9 +3,6 @@ import { ReadAloudButton } from "@/components/read-aloud-button";
 import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import type { Language } from "@/lib/llm/prompts";
 
-/**
- * Props for the plan's read-aloud and print controls.
- */
 export interface PlanToolsProps {
   plan: ClientPlanWithImpact;
   language: Language;

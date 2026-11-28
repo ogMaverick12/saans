@@ -2,9 +2,6 @@ import type { ChangeEvent } from "react";
 import { Label } from "@/components/ui/label";
 import type { ProfileOption } from "@/lib/profile/form";
 
-/**
- * Props for a labelled native select.
- */
 export interface SelectFieldProps<T extends string> {
   id: string;
   label: string;

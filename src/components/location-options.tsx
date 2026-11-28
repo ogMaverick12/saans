@@ -2,9 +2,6 @@ import { cn } from "cn";
 import type { ClientGeocodeMatch } from "@/lib/client/client-schemas";
 import { describePlace, locationOptionId } from "@/lib/place-search";
 
-/**
- * Props for the combobox result list.
- */
 export interface LocationOptionsProps {
   id: string;
   matches: ClientGeocodeMatch[];

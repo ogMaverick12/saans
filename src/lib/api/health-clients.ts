@@ -9,15 +9,9 @@ const PROBE_SYSTEM = "You are a health check. Reply with OK.";
 const PROBE_USER = "Reply with OK";
 const FALLBACK_FAILURE_CODE: AppErrorCode = "UPSTREAM_FAILED";
 
-/**
- * One language-model client name.
- */
 export type HealthClientName =
   "gemini-primary" | "gemini-fallback" | "openrouter";
 
-/**
- * Status of one language-model client.
- */
 export type HealthStatus = "configured" | "missing" | "ok" | "failed";
 
 /**

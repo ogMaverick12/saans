@@ -84,27 +84,12 @@ export const AskSchema = z.strictObject({
   followUps: z.array(textSchema).max(MAX_FOLLOW_UPS),
 });
 
-/**
- * A validated plan returned by the language model.
- */
 export type Plan = z.infer<typeof PlanSchema>;
 
-/**
- * A validated answer to a follow-up question.
- */
 export type Ask = z.infer<typeof AskSchema>;
 
-/**
- * One validated item in the daily routine.
- */
 export type DailyRoutineItem = Plan["dailyRoutine"][number];
 
-/**
- * One validated indoor air-quality hack.
- */
 export type IndoorHack = Plan["indoorHacks"][number];
 
-/**
- * One validated sustainable alternative.
- */
 export type SustainableAlternative = Plan["sustainableAlternatives"][number];

@@ -103,7 +103,6 @@ export const ENV_VAR_NAMES = {
   openRouterModel: "OPENROUTER_MODEL",
 } as const;
 
-/** One of the environment variable names the server understands. */
 export type EnvVarName = (typeof ENV_VAR_NAMES)[keyof typeof ENV_VAR_NAMES];
 
 /** Default Gemini model when GEMINI_MODEL is unset; Flash-Lite has the highest free-tier usage. */

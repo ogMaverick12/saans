@@ -1,9 +1,6 @@
 import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-/**
- * Props for the plan's air summary.
- */
 export interface PlanSummaryProps {
   plan: ClientPlanWithImpact;
 }

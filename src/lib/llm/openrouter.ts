@@ -24,9 +24,6 @@ const openRouterResponseSchema = z.object({
     .min(1),
 });
 
-/**
- * Settings for an OpenRouter chat-completions client.
- */
 export interface OpenRouterClientOptions {
   apiKey: string;
   model: string;

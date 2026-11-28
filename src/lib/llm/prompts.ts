@@ -25,7 +25,6 @@ export interface Prompt {
 /** The id and label of one impact factor offered to the model. */
 export type FactorCatalogEntry = Pick<ImpactFactor, "id" | "label">;
 
-/** Inputs for the plan prompt. */
 export interface PlanPromptInput {
   digest: AirDigest;
   profile: Profile;
@@ -34,7 +33,6 @@ export interface PlanPromptInput {
   factorCatalog: readonly FactorCatalogEntry[];
 }
 
-/** Inputs for the follow-up answer prompt. */
 export interface AskPromptInput {
   question: string;
   digest: AirDigest;

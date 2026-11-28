@@ -62,34 +62,16 @@ export const HeatingSchema = z.enum([
  */
 export const BudgetSchema = z.enum(["low", "medium", "high"]);
 
-/**
- * One household member type.
- */
 export type HouseholdMember = z.infer<typeof HouseholdMemberSchema>;
 
-/**
- * One commute mode.
- */
 export type Commute = z.infer<typeof CommuteSchema>;
 
-/**
- * One home type.
- */
 export type HomeType = z.infer<typeof HomeTypeSchema>;
 
-/**
- * One cooking fuel.
- */
 export type CookingFuel = z.infer<typeof CookingFuelSchema>;
 
-/**
- * One heating source.
- */
 export type Heating = z.infer<typeof HeatingSchema>;
 
-/**
- * One budget level.
- */
 export type Budget = z.infer<typeof BudgetSchema>;
 
 /**
@@ -121,7 +103,4 @@ export const ProfileSchema = z.object({
     .optional(),
 });
 
-/**
- * Validated household profile.
- */
 export type Profile = z.infer<typeof ProfileSchema>;

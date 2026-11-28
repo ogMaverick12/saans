@@ -1,8 +1,5 @@
 import { Switch } from "@/components/ui/switch";
 
-/**
- * Props for a labelled switch row.
- */
 export interface SwitchFieldProps {
   id: string;
   label: string;

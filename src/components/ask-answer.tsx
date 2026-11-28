@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import type { Ask } from "@/lib/llm/plan-schema";
 
-/**
- * Props for the latest answer and its follow-up suggestions.
- */
 export interface AskAnswerProps {
   answer: Ask;
   onFollowUp: (question: string) => void;

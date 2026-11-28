@@ -1,9 +1,6 @@
 import type { RefObject } from "react";
 import type { ProfileFieldError } from "@/lib/profile/form";
 
-/**
- * Props for the form-level validation summary.
- */
 export interface ErrorSummaryProps {
   errors: ProfileFieldError[];
   summaryRef: RefObject<HTMLDivElement | null>;

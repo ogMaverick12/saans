@@ -5,9 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatAirWindow, formatPm25, trendText } from "@/lib/air/format";
 import type { AirDigest } from "@/lib/air/digest-schema";
 
-/**
- * Props for the current air summary card.
- */
 export interface AirCardProps {
   digest: AirDigest;
 }

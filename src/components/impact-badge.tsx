@@ -1,8 +1,5 @@
 import type { ImpactFactor } from "@/lib/impact/impact-types";
 
-/**
- * Props for one attached impact factor.
- */
 export interface ImpactBadgeProps {
   factor: ImpactFactor;
 }

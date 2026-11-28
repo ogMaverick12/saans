@@ -28,9 +28,6 @@ function serverHasSpeechSynthesis(): boolean {
   return false;
 }
 
-/**
- * Props for the plan read-aloud control.
- */
 export interface ReadAloudButtonProps {
   plan: ClientPlanWithImpact;
   language: Language;

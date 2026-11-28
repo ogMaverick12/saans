@@ -4,9 +4,6 @@ import { ErrorNotice } from "@/components/error-notice";
 import { FALLBACK_ERROR_MESSAGE } from "@/lib/config";
 import type { PlanFlowState } from "@/hooks/plan-flow";
 
-/**
- * Props for the air card, loading skeleton and air error.
- */
 export interface AirSectionProps {
   state: PlanFlowState;
   onRetry: () => void;

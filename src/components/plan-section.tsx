@@ -37,9 +37,6 @@ function isPlanReady(state: PlanFlowState): state is ReadyPlanState {
   );
 }
 
-/**
- * Props for the plan skeleton, error and generated plan.
- */
 export interface PlanSectionProps {
   state: PlanFlowState;
   onRetry: () => void;

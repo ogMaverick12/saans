@@ -10,9 +10,6 @@ interface CommonFieldsetProps<T extends string> {
   error?: string;
 }
 
-/**
- * Props for a checkbox or radio fieldset, selected by the `type` discriminant.
- */
 export type FieldsetGroupProps<T extends string> =
   | (CommonFieldsetProps<T> & {
       type: "checkbox";

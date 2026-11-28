@@ -6,9 +6,6 @@ export interface AskExchange {
   answer: string;
 }
 
-/**
- * Props for the earlier question-and-answer pairs.
- */
 export interface AskHistoryProps {
   exchanges: readonly AskExchange[];
 }

@@ -20,9 +20,6 @@ export const FACTOR_IDS = [
   "wet-mop-dust",
 ] as const;
 
-/**
- * One factor identifier from the catalog.
- */
 export type FactorId = (typeof FACTOR_IDS)[number];
 
 /**
@@ -44,9 +41,6 @@ export const IMPACT_GROUPS = z.enum([
   "housekeeping",
 ]);
 
-/**
- * The habit group a factor belongs to.
- */
 export type ImpactGroup = z.infer<typeof IMPACT_GROUPS>;
 
 /**
@@ -68,9 +62,6 @@ export type ImpactEffect =
   | { kind: "computed" }
   | { kind: "qualitative"; note: string };
 
-/**
- * One entry in the impact catalog.
- */
 export interface ImpactFactor {
   id: FactorId;
   label: string;

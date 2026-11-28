@@ -22,7 +22,7 @@ Next.js (App Router), TypeScript strict, Tailwind, shadcn/ui, Zod, Vitest, Testi
 - Functions that do I/O take their client (fetch, LlmClient) as a parameter with a default.
 - No magic numbers or strings: named constants.
 - Descriptive names. Only lat, lon, aqi, pm are allowed abbreviations.
-- JSDoc on every exported function, type and component: one sentence of purpose.
+- JSDoc on exported functions, types and components whose name and signature do not make the purpose clear: one sentence that adds meaning, never a restatement of the name.
 - No commented-out code, no TODO, no console.log. Use src/lib/logger.ts, which never logs request bodies.
 - Named exports (Next.js pages and routes excepted). Early returns; at most two nesting levels.
 - Errors: a typed AppError with a code and a safe message. Never leak stack traces.
