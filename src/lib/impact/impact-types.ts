@@ -80,3 +80,13 @@ export interface ImpactFactor {
   source: string;
   confidence: ImpactConfidence;
 }
+
+/**
+ * Result of comparing baseline exposure with selected factors.
+ */
+export interface ExposureEstimate {
+  baselineUgM3: number;
+  adjustedUgM3: number;
+  reductionPct: number;
+  applied: string[];
+}

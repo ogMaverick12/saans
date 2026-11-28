@@ -17,6 +17,74 @@ export interface PlanGenerator {
 }
 
 /**
+ * Inputs needed to start one plan request.
+ */
+interface PlanRequestOptions {
+  place: PlaceInput;
+  input: GeneratePlanInput;
+  dispatch: Dispatch<PlanFlowAction>;
+  requestId: { current: number };
+  abort: { current: AbortController | null };
+}
+
+/**
+ * Dispatches the loading state for a plan request.
+ */
+function dispatchPlanLoading(
+  dispatch: Dispatch<PlanFlowAction>,
+  input: GeneratePlanInput,
+): void {
+  dispatch({
+    type: "PLAN_LOADING",
+    language: input.language,
+    profile: input.profile,
+  });
+}
+
+/**
+ * Dispatches a safe failure for a plan request.
+ */
+function dispatchPlanFailure(
+  dispatch: Dispatch<PlanFlowAction>,
+  error: unknown,
+): void {
+  dispatch({
+    type: "FAILED",
+    source: "plan",
+    message: toClientMessage(error),
+  });
+}
+
+/**
+ * Starts a plan request, ignoring stale and aborted responses.
+ */
+function startPlanRequest({
+  place,
+  input,
+  dispatch,
+  requestId,
+  abort,
+}: PlanRequestOptions): void {
+  abort.current?.abort();
+  const controller = new AbortController();
+  abort.current = controller;
+  const currentRequest = ++requestId.current;
+  dispatchPlanLoading(dispatch, input);
+  requestPlan({ place, ...input }, { signal: controller.signal })
+    .then(({ plan, digest }) => {
+      if (currentRequest === requestId.current) {
+        dispatch({ type: "PLAN_READY", plan, digest });
+      }
+    })
+    .catch((error: unknown) => {
+      if (currentRequest !== requestId.current || isAbortError(error)) {
+        return;
+      }
+      dispatchPlanFailure(dispatch, error);
+    });
+}
+
+/**
  * Requests a plan, ignoring stale and aborted responses, and remembers the last input.
  */
 export function usePlanGenerator(
@@ -33,31 +101,7 @@ export function usePlanGenerator(
         return;
       }
       lastInput.current = input;
-      abort.current?.abort();
-      const controller = new AbortController();
-      abort.current = controller;
-      const currentRequest = ++requestId.current;
-      dispatch({
-        type: "PLAN_LOADING",
-        language: input.language,
-        profile: input.profile,
-      });
-      requestPlan({ place, ...input }, { signal: controller.signal })
-        .then(({ plan, digest }) => {
-          if (currentRequest === requestId.current) {
-            dispatch({ type: "PLAN_READY", plan, digest });
-          }
-        })
-        .catch((error: unknown) => {
-          if (currentRequest !== requestId.current || isAbortError(error)) {
-            return;
-          }
-          dispatch({
-            type: "FAILED",
-            source: "plan",
-            message: toClientMessage(error),
-          });
-        });
+      startPlanRequest({ place, input, dispatch, requestId, abort });
     },
     [dispatch, place],
   );

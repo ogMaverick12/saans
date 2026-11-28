@@ -33,6 +33,27 @@ export interface ProfileFormController {
 }
 
 /**
+ * Validates the form values and passes a submission when they are valid.
+ */
+function submitProfile(
+  values: ProfileFormValues,
+  onValid: (submission: ProfileSubmission) => void,
+  setErrors: (errors: ProfileFieldError[]) => void,
+): void {
+  const parsed = ProfileSchema.safeParse(toProfileCandidate(values));
+  if (!parsed.success) {
+    setErrors(toProfileFieldErrors(parsed.error));
+    return;
+  }
+  setErrors([]);
+  onValid({
+    profile: parsed.data,
+    language: values.language,
+    readingMode: values.readingMode,
+  });
+}
+
+/**
  * Holds profile form values and validates them with ProfileSchema on submit.
  */
 export function useProfileForm(
@@ -56,17 +77,7 @@ export function useProfileForm(
   }
 
   function submit() {
-    const parsed = ProfileSchema.safeParse(toProfileCandidate(values));
-    if (!parsed.success) {
-      setErrors(toProfileFieldErrors(parsed.error));
-      return;
-    }
-    setErrors([]);
-    onValid({
-      profile: parsed.data,
-      language: values.language,
-      readingMode: values.readingMode,
-    });
+    submitProfile(values, onValid, setErrors);
   }
 
   return { values, errors, summaryRef, update, submit };

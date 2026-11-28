@@ -67,6 +67,23 @@ function isBetterWindow(
 }
 
 /**
+ * Builds the three-hour window for a slice, or null when it has no measured values.
+ */
+function buildWindow(points: HourlyPoint[]): AirWindow | null {
+  const values = points.map((point) => point.pm25).filter(isMeasured);
+  const firstPoint = points[0];
+  if (values.length === 0 || firstPoint === undefined) {
+    return null;
+  }
+  const startHour = parseHour(firstPoint.time);
+  return {
+    startHour,
+    endHour: startHour + WINDOW_HOURS,
+    meanPm25: average(values),
+  };
+}
+
+/**
  * Finds the cleanest or worst three consecutive hours, earliest on ties.
  */
 export function findWindow(
@@ -77,20 +94,8 @@ export function findWindow(
   let bestWindow: AirWindow | null = null;
 
   for (let index = 0; index <= points.length - WINDOW_HOURS; index += 1) {
-    const windowPoints = points.slice(index, index + WINDOW_HOURS);
-    const values = windowPoints.map((point) => point.pm25).filter(isMeasured);
-    const firstPoint = windowPoints[0];
-    if (values.length === 0 || firstPoint === undefined) {
-      continue;
-    }
-
-    const startHour = parseHour(firstPoint.time);
-    const candidate: AirWindow = {
-      startHour,
-      endHour: startHour + WINDOW_HOURS,
-      meanPm25: average(values),
-    };
-    if (isBetterWindow(candidate, bestWindow, goal)) {
+    const candidate = buildWindow(points.slice(index, index + WINDOW_HOURS));
+    if (candidate !== null && isBetterWindow(candidate, bestWindow, goal)) {
       bestWindow = candidate;
     }
   }

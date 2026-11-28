@@ -34,6 +34,48 @@ const INITIAL_PLACE_SEARCH_STATE: PlaceSearchState = {
 };
 
 /**
+ * Searches for a query and stores the result unless the request was aborted.
+ */
+function searchQuery(
+  query: string,
+  signal: AbortSignal,
+  setResult: (state: SearchResultState) => void,
+): void {
+  searchPlaces(query, { signal })
+    .then((results) => {
+      if (!signal.aborted) {
+        setResult({ query, results, error: null });
+      }
+    })
+    .catch((error: unknown) => {
+      if (signal.aborted || isAbortError(error)) {
+        return;
+      }
+      setResult({ query, results: [], error: toClientMessage(error) });
+    });
+}
+
+/**
+ * Maps the stored result to the state shown by the combobox.
+ */
+function toPlaceSearchState(
+  active: boolean,
+  query: string,
+  result: SearchResultState | null,
+): PlaceSearchState {
+  if (!active) {
+    return INITIAL_PLACE_SEARCH_STATE;
+  }
+  if (result === null || result.query !== query) {
+    return { status: "loading", results: [], error: null };
+  }
+  if (result.error !== null) {
+    return { status: "error", results: [], error: result.error };
+  }
+  return { status: "success", results: result.results, error: null };
+}
+
+/**
  * Searches for places after a short pause, aborting stale requests.
  */
 export function usePlaceSearch(
@@ -50,34 +92,10 @@ export function usePlaceSearch(
     }
 
     const controller = new AbortController();
-    searchPlaces(debounced, { signal: controller.signal })
-      .then((results) => {
-        if (!controller.signal.aborted) {
-          setResult({ query: debounced, results, error: null });
-        }
-      })
-      .catch((error: unknown) => {
-        if (controller.signal.aborted || isAbortError(error)) {
-          return;
-        }
-        setResult({
-          query: debounced,
-          results: [],
-          error: toClientMessage(error),
-        });
-      });
+    searchQuery(debounced, controller.signal, setResult);
 
     return () => controller.abort();
   }, [active, debounced]);
 
-  if (!active) {
-    return INITIAL_PLACE_SEARCH_STATE;
-  }
-  if (result === null || result.query !== debounced) {
-    return { status: "loading", results: [], error: null };
-  }
-  if (result.error !== null) {
-    return { status: "error", results: [], error: result.error };
-  }
-  return { status: "success", results: result.results, error: null };
+  return toPlaceSearchState(active, debounced, result);
 }

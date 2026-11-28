@@ -39,6 +39,25 @@ export interface PlaceComboboxController {
 }
 
 /**
+ * Searches for places and derives the visible list and active option.
+ */
+function useComboboxView(
+  listboxId: string,
+  query: string,
+  open: boolean,
+  activeIndex: number,
+) {
+  const { status, results, error } = usePlaceSearch(query, open);
+  const showList = open && query.trim().length >= MIN_PLACE_QUERY_CHARS;
+  const activeMatch = activeIndex >= 0 ? results[activeIndex] : undefined;
+  const activeOptionId =
+    showList && activeMatch !== undefined
+      ? locationOptionId(listboxId, activeIndex)
+      : undefined;
+  return { status, results, error, showList, activeMatch, activeOptionId };
+}
+
+/**
  * Owns the combobox state and keyboard behaviour for place search.
  */
 export function usePlaceCombobox(
@@ -48,13 +67,8 @@ export function usePlaceCombobox(
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const ids = useComboboxIds();
-  const { status, results, error } = usePlaceSearch(query, open);
-  const showList = open && query.trim().length >= MIN_PLACE_QUERY_CHARS;
-  const activeMatch = activeIndex >= 0 ? results[activeIndex] : undefined;
-  const activeOptionId =
-    showList && activeMatch !== undefined
-      ? locationOptionId(ids.listboxId, activeIndex)
-      : undefined;
+  const { status, results, error, showList, activeMatch, activeOptionId } =
+    useComboboxView(ids.listboxId, query, open, activeIndex);
   const handlers = createComboboxHandlers({
     onSelect,
     results,

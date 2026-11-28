@@ -1,11 +1,16 @@
 import type { AirDigest } from "@/lib/air/digest-schema";
-import type { ImpactFactor, ImpactGroup } from "@/lib/impact/impact-types";
+import type {
+  ExposureEstimate,
+  ImpactFactor,
+  ImpactGroup,
+} from "@/lib/impact/impact-types";
 import type { Commute, Profile } from "@/lib/profile/schema";
 
 const HOURS_PER_DAY = 24;
 const PERCENT = 100;
 const ROUNDING_FACTOR = 10;
 const INDOOR_GROUPS = ["cleaner", "ventilation", "cooking"] as const;
+const SHIFT_FACTOR_ID = "shift-outdoor-activity";
 
 /** Hours per day spent outdoors by commute mode. */
 export const OUTDOOR_HOURS_BY_COMMUTE: Readonly<Record<Commute, number>> = {
@@ -20,14 +25,6 @@ export const OUTDOOR_HOURS_BY_COMMUTE: Readonly<Record<Commute, number>> = {
 
 /** Fraction of outdoor PM2.5 that reaches indoor air. */
 export const INDOOR_INFILTRATION = 0.7;
-
-/** Result of comparing baseline exposure with selected factors. */
-export interface ExposureEstimate {
-  baselineUgM3: number;
-  adjustedUgM3: number;
-  reductionPct: number;
-  applied: string[];
-}
 
 function roundOne(value: number): number {
   return Math.round(value * ROUNDING_FACTOR) / ROUNDING_FACTOR;
@@ -47,26 +44,22 @@ function bestInGroup(
   factors: readonly ImpactFactor[],
   group: ImpactGroup,
 ): ImpactFactor | undefined {
-  let best: ImpactFactor | undefined;
-  for (const factor of factors) {
-    if (factor.group !== group) {
-      continue;
-    }
-    if (best === undefined || typicalPct(factor) > typicalPct(best)) {
-      best = factor;
-    }
-  }
-  return best;
+  return factors.reduce<ImpactFactor | undefined>(
+    (best, factor) =>
+      factor.group === group &&
+      (best === undefined || typicalPct(factor) > typicalPct(best))
+        ? factor
+        : best,
+    undefined,
+  );
 }
 
 function combinedReduction(factors: readonly ImpactFactor[]): number {
-  return (
-    1 -
-    factors.reduce(
-      (remaining, factor) => remaining * (1 - typicalPct(factor) / PERCENT),
-      1,
-    )
-  );
+  let remaining = 1;
+  for (const factor of factors) {
+    remaining *= 1 - typicalPct(factor) / PERCENT;
+  }
+  return 1 - remaining;
 }
 
 interface ExposureAtOptions {
@@ -102,6 +95,27 @@ function contributedIds(
 }
 
 /**
+ * Collects the factors and concentrations used by the exposure estimate.
+ */
+function exposureInputs(
+  digest: AirDigest,
+  profile: Profile,
+  selected: readonly ImpactFactor[],
+) {
+  const mask = bestInGroup(selected, "mask");
+  const indoor = INDOOR_GROUPS.map((group) =>
+    bestInGroup(selected, group),
+  ).filter(isPresent);
+  const shift = selected.find((factor) => factor.id === SHIFT_FACTOR_ID);
+  const outdoorPm25 = shift
+    ? digest.cleanestWindow.meanPm25
+    : digest.dailyMeanPm25;
+  const indoorPm25 = digest.dailyMeanPm25 * INDOOR_INFILTRATION;
+  const outdoorHours = OUTDOOR_HOURS_BY_COMMUTE[profile.commute];
+  return [mask, indoor, shift, outdoorPm25, indoorPm25, outdoorHours] as const;
+}
+
+/**
  * Applies selected factors to a digest and returns the rounded estimate.
  */
 export function calculateExposure(
@@ -109,18 +123,8 @@ export function calculateExposure(
   profile: Profile,
   selected: readonly ImpactFactor[],
 ): ExposureEstimate {
-  const mask = bestInGroup(selected, "mask");
-  const indoor = INDOOR_GROUPS.map((group) =>
-    bestInGroup(selected, group),
-  ).filter(isPresent);
-  const shift = selected.find(
-    (factor) => factor.id === "shift-outdoor-activity",
-  );
-  const outdoorPm25 = shift
-    ? digest.cleanestWindow.meanPm25
-    : digest.dailyMeanPm25;
-  const indoorPm25 = digest.dailyMeanPm25 * INDOOR_INFILTRATION;
-  const outdoorHours = OUTDOOR_HOURS_BY_COMMUTE[profile.commute];
+  const [mask, indoor, shift, outdoorPm25, indoorPm25, outdoorHours] =
+    exposureInputs(digest, profile, selected);
   const baseline = exposureAt({
     outdoorHours,
     outdoorPm25: digest.dailyMeanPm25,

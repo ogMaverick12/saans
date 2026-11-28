@@ -17,7 +17,7 @@ Next.js (App Router), TypeScript strict, Tailwind, shadcn/ui, Zod, Vitest, Testi
 
 ## Code quality
 - TypeScript strict. No any, no non-null assertions, no ts-ignore. Use unknown plus Zod at boundaries.
-- Functions under 30 lines, components under 100, files under 150. Split before exceeding.
+- Functions under 30 lines (components and other `.tsx` functions under 80), files under 150. Cyclomatic complexity at most 8, nesting at most 2 levels, at most 4 parameters. Split before exceeding.
 - One responsibility per module. Pure logic never touches fetch, process.env or the DOM.
 - Functions that do I/O take their client (fetch, LlmClient) as a parameter with a default.
 - No magic numbers or strings: named constants.

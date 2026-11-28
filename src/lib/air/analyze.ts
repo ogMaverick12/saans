@@ -40,6 +40,16 @@ function buildSmogCues(current: WeatherResponse["current"]): string[] {
 }
 
 /**
+ * Reports whether the CPCB scale applies to this place.
+ */
+function shouldUseCpcb(place: GeocodeMatch, timezone: string): boolean {
+  const countryCode = place.countryCode?.toUpperCase() ?? null;
+  return (
+    countryCode === "IN" || (countryCode === null && timezone === CPCB_TIMEZONE)
+  );
+}
+
+/**
  * Turns raw air and weather responses into a compact, prompt-ready digest.
  */
 export function analyzeAir(
@@ -51,10 +61,7 @@ export function analyzeAir(
   const today = air.current.time.slice(0, DATE_LENGTH);
   const todayPoints = points.filter((point) => point.time.startsWith(today));
   const dailyMeanPm25 = averagePm25(todayPoints, air.current.pm2_5);
-  const countryCode = place.countryCode?.toUpperCase() ?? null;
-  const useCpcb =
-    countryCode === "IN" ||
-    (countryCode === null && air.timezone === CPCB_TIMEZONE);
+  const useCpcb = shouldUseCpcb(place, air.timezone);
 
   return {
     observedAt: air.current.time,

@@ -1,17 +1,14 @@
 import type { AirDigest } from "@/lib/air/digest-schema";
-import {
-  calculateExposure,
-  type ExposureEstimate,
-} from "@/lib/impact/exposure";
+import { calculateExposure } from "@/lib/impact/exposure";
 import { getFactor, IMPACT_FACTORS } from "@/lib/impact/impact-factors";
-import type { ImpactFactor } from "@/lib/impact/impact-types";
+import type { ExposureEstimate, ImpactFactor } from "@/lib/impact/impact-types";
 import type { Profile } from "@/lib/profile/schema";
 
 export {
   INDOOR_INFILTRATION,
   OUTDOOR_HOURS_BY_COMMUTE,
-  type ExposureEstimate,
 } from "@/lib/impact/exposure";
+export type { ExposureEstimate } from "@/lib/impact/impact-types";
 
 /**
  * One item whose factor IDs should be replaced with catalog factors.
