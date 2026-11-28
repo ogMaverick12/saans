@@ -1,10 +1,11 @@
 import {
-  useId,
   useState,
   type ChangeEvent,
   type FocusEvent,
   type KeyboardEvent,
 } from "react";
+import { createComboboxHandlers } from "@/hooks/combobox-handlers";
+import { useComboboxIds } from "@/hooks/use-combobox-ids";
 import { usePlaceSearch } from "@/hooks/use-place-search";
 import type { ClientGeocodeMatch } from "@/lib/api/client-schemas";
 import type { PlaceInput } from "@/lib/api/schemas";
@@ -46,81 +47,25 @@ export function usePlaceCombobox(
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const inputId = useId();
-  const listboxId = useId();
-  const hintId = useId();
-  const errorId = useId();
+  const ids = useComboboxIds();
   const { status, results, error } = usePlaceSearch(query, open);
   const showList = open && query.trim().length >= MIN_PLACE_QUERY_CHARS;
   const activeMatch = activeIndex >= 0 ? results[activeIndex] : undefined;
   const activeOptionId =
     showList && activeMatch !== undefined
-      ? locationOptionId(listboxId, activeIndex)
+      ? locationOptionId(ids.listboxId, activeIndex)
       : undefined;
-
-  function selectPlace(place: PlaceInput) {
-    onSelect(place);
-    setQuery(place.name);
-    setOpen(false);
-    setActiveIndex(-1);
-  }
-
-  function selectMatch(match: ClientGeocodeMatch) {
-    selectPlace({
-      name: match.name,
-      latitude: match.latitude,
-      longitude: match.longitude,
-      countryCode: match.countryCode,
-    });
-  }
-
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setQuery(event.target.value);
-    setOpen(true);
-    setActiveIndex(-1);
-  }
-
-  function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
-    if (event.key === "ArrowDown") {
-      event.preventDefault();
-      setOpen(true);
-      setActiveIndex((index) => Math.min(index + 1, results.length - 1));
-      return;
-    }
-    if (event.key === "ArrowUp") {
-      event.preventDefault();
-      setActiveIndex((index) => Math.max(index - 1, 0));
-      return;
-    }
-    if (event.key === "Enter" && activeMatch !== undefined) {
-      event.preventDefault();
-      selectMatch(activeMatch);
-      return;
-    }
-    if (event.key === "Escape") {
-      event.preventDefault();
-      setOpen(false);
-      setActiveIndex(-1);
-    }
-  }
-
-  function handleBlur(event: FocusEvent<HTMLDivElement>) {
-    const next = event.relatedTarget;
-    if (!(next instanceof Node) || !event.currentTarget.contains(next)) {
-      setOpen(false);
-      setActiveIndex(-1);
-    }
-  }
-
-  function handleFocus() {
-    setOpen(true);
-  }
+  const handlers = createComboboxHandlers({
+    onSelect,
+    results,
+    activeMatch,
+    setQuery,
+    setOpen,
+    setActiveIndex,
+  });
 
   return {
-    inputId,
-    listboxId,
-    hintId,
-    errorId,
+    ...ids,
     query,
     showList,
     activeIndex,
@@ -128,11 +73,6 @@ export function usePlaceCombobox(
     results,
     status,
     error,
-    handleChange,
-    handleKeyDown,
-    handleFocus,
-    handleBlur,
-    selectMatch,
-    selectPlace,
+    ...handlers,
   };
 }
