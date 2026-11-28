@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AirDigestSchema } from "@/lib/api/client-schemas";
+import { AirDigestSchema } from "@/lib/client/client-schemas";
 import { FACTOR_IDS, IMPACT_GROUPS } from "@/lib/impact/impact-types";
 import {
   AreaSchema,

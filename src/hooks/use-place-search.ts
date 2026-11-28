@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
-import { isAbortError, searchPlaces, toClientMessage } from "@/lib/api/client";
-import type { ClientGeocodeMatch } from "@/lib/api/client-schemas";
+import {
+  isAbortError,
+  searchPlaces,
+  toClientMessage,
+} from "@/lib/client/client";
+import type { ClientGeocodeMatch } from "@/lib/client/client-schemas";
 import { SEARCH_DEBOUNCE_MS } from "@/lib/config";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import {

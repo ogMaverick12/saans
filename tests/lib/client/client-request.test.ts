@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
 import { z } from "zod";
-import { ClientError } from "@/lib/api/client-errors";
-import { jsonPost, requestJson } from "@/lib/api/client-request";
-import type { ClientFetch } from "@/lib/api/client-errors";
+import { ClientError } from "@/lib/client/client-errors";
+import { jsonPost, requestJson } from "@/lib/client/client-request";
+import type { ClientFetch } from "@/lib/client/client-errors";
 
 const PAYLOAD_SCHEMA = z.object({ value: z.number() });
 

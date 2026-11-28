@@ -1,4 +1,4 @@
-import type { ClientImpactFactor } from "@/lib/api/client-plan-schemas";
+import type { ClientImpactFactor } from "@/lib/client/client-plan-schemas";
 
 /**
  * Props for the plan's trip-emission factors.

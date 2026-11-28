@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { ProfileOption } from "@/lib/profile/form";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 interface CommonFieldsetProps<T extends string> {
   id: string;

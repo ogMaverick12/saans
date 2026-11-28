@@ -1,7 +1,7 @@
 import type {
   ClientImpactFactor,
   ClientPlanWithImpact,
-} from "@/lib/api/client-plan-schemas";
+} from "@/lib/client/client-plan-schemas";
 
 /**
  * Returns each factor attached to a plan once, in first-seen order.

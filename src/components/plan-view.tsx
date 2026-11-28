@@ -9,8 +9,8 @@ import { PlanSummary } from "@/components/plan/plan-summary";
 import { PlanTools } from "@/components/plan/plan-tools";
 import { SustainableAlternatives } from "@/components/plan/sustainable-alternatives";
 import { WhatIfPanel } from "@/components/what-if-panel";
-import type { ClientAirDigest } from "@/lib/api/client-schemas";
-import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
+import type { ClientAirDigest } from "@/lib/client/client-schemas";
+import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import type { Language } from "@/lib/llm/prompts";
 import type { Profile } from "@/lib/profile/schema";
 

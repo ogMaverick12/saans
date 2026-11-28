@@ -2,11 +2,11 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
-import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
+import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import {
   buildReadAloudText,
   READ_ALOUD_LANGUAGES,
-} from "@/lib/llm/plan-display";
+} from "@/components/plan/plan-display";
 import type { Language } from "@/lib/llm/prompts";
 
 function subscribe(): () => void {

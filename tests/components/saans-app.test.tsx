@@ -2,14 +2,15 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { z } from "zod";
 
 const mocks = vi.hoisted(() => ({
   searchPlaces: vi.fn(),
   fetchAirDigest: vi.fn(),
 }));
 
-vi.mock("@/lib/api/client", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/lib/api/client")>();
+vi.mock("@/lib/client/client", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/client/client")>();
   return {
     ...actual,
     searchPlaces: mocks.searchPlaces,
@@ -33,6 +34,10 @@ describe("SaansApp", () => {
   beforeEach(() => {
     mocks.searchPlaces.mockReset();
     mocks.fetchAirDigest.mockReset();
+  });
+
+  it("disables Zod's eval-based JIT for the strict CSP", () => {
+    expect(z.core.globalConfig.jitless).toBe(true);
   });
 
   it("starts with search and no air or profile form", () => {

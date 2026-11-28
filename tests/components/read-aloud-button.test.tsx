@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ReadAloudButton } from "@/components/read-aloud-button";
-import { buildClientPlan } from "../lib/api/client-test-data";
+import { buildClientPlan } from "../lib/client/client-test-data";
 
 const PLAN = buildClientPlan();
 

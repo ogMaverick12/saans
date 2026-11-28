@@ -7,8 +7,8 @@ import {
   READ_ALOUD_LANGUAGES,
   sortByTimeBlock,
   TIME_BLOCK_LABELS,
-} from "@/lib/llm/plan-display";
-import { VALID_PLAN } from "./test-data";
+} from "@/components/plan/plan-display";
+import { VALID_PLAN } from "../../lib/llm/test-data";
 
 describe("plan display", () => {
   it("sorts routine items from earliest to latest", () => {

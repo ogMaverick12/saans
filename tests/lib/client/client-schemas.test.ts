@@ -3,7 +3,7 @@ import {
   AirDigestSchema,
   AqiLevelSchema,
   GeocodeMatchSchema,
-} from "@/lib/api/client-schemas";
+} from "@/lib/client/client-schemas";
 import { buildDigest } from "../../lib/impact/test-data";
 
 const DELHI = {

@@ -5,7 +5,7 @@ import {
   hasDuplicateExposureGroups,
   initialExposureSelection,
 } from "@/lib/impact/what-if";
-import { buildClientPlan } from "../api/client-test-data";
+import { buildClientPlan } from "../client/client-test-data";
 
 describe("what-if helpers", () => {
   it("starts with only the exposure factors already in the plan", () => {

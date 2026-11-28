@@ -5,7 +5,7 @@ import type {
   KeyboardEvent,
   SetStateAction,
 } from "react";
-import type { ClientGeocodeMatch } from "@/lib/api/client-schemas";
+import type { ClientGeocodeMatch } from "@/lib/client/client-schemas";
 import type { PlaceInput } from "@/lib/api/schemas";
 
 /** State setters and callbacks shared by the combobox handlers. */

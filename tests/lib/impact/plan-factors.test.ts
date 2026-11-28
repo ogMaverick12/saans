@@ -3,7 +3,7 @@ import {
   collectPlanFactors,
   collectTripFactors,
 } from "@/lib/impact/plan-factors";
-import { buildClientPlan } from "../api/client-test-data";
+import { buildClientPlan } from "../client/client-test-data";
 
 describe("plan factors", () => {
   it("collects each attached factor once in first-seen order", () => {

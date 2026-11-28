@@ -4,7 +4,7 @@ import {
   isAbortError,
   type ClientFetch,
   type ClientRequestOptions,
-} from "@/lib/api/client-errors";
+} from "@/lib/client/client-errors";
 import { APP_ERROR_CODES } from "@/lib/errors";
 
 const MAX_ERROR_MESSAGE_CHARS = 1_000;

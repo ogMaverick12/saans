@@ -1,4 +1,4 @@
-import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
+import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 /**

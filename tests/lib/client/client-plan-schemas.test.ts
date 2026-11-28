@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   ImpactFactorSchema,
   PlanResponseSchema,
-} from "@/lib/api/client-plan-schemas";
+} from "@/lib/client/client-plan-schemas";
 import { buildDigest } from "../impact/test-data";
 import { buildClientPlan } from "./client-test-data";
 

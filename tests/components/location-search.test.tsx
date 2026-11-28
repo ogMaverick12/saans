@@ -5,8 +5,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({ searchPlaces: vi.fn() }));
 
-vi.mock("@/lib/api/client", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/lib/api/client")>();
+vi.mock("@/lib/client/client", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/client/client")>();
   return { ...actual, searchPlaces: mocks.searchPlaces };
 });
 

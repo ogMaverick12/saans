@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { describe, expect, it } from "vitest";
 import { PlanView } from "@/components/plan-view";
-import { buildClientPlan } from "../lib/api/client-test-data";
+import { buildClientPlan } from "../lib/client/client-test-data";
 import { buildDigest, buildProfile } from "../lib/impact/test-data";
 
 const PLAN = buildClientPlan();

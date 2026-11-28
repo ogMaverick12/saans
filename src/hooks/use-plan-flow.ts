@@ -7,7 +7,7 @@ import {
   planFlowReducer,
   type PlanFlowAction,
   type PlanFlowState,
-} from "@/lib/plan-flow";
+} from "@/hooks/plan-flow";
 
 /**
  * Returns a callback that selects a place and loads its air.

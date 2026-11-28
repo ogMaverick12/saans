@@ -7,7 +7,7 @@ import {
 import { createComboboxHandlers } from "@/hooks/combobox-handlers";
 import { useComboboxIds } from "@/hooks/use-combobox-ids";
 import { usePlaceSearch } from "@/hooks/use-place-search";
-import type { ClientGeocodeMatch } from "@/lib/api/client-schemas";
+import type { ClientGeocodeMatch } from "@/lib/client/client-schemas";
 import type { PlaceInput } from "@/lib/api/schemas";
 import {
   locationOptionId,

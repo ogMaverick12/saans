@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import { AqiBadge } from "@/components/aqi-badge";
 import { AQI_BORDER_CLASSES } from "@/components/aqi-styles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

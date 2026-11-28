@@ -1,7 +1,10 @@
-import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
+import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import { ImpactBadge } from "@/components/impact-badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { sortByTimeBlock, TIME_BLOCK_LABELS } from "@/lib/llm/plan-display";
+import {
+  sortByTimeBlock,
+  TIME_BLOCK_LABELS,
+} from "@/components/plan/plan-display";
 
 /**
  * Props for the daily routine section.

@@ -2,7 +2,7 @@ import { AirCard } from "@/components/air-card";
 import { AirCardSkeleton } from "@/components/air-card-skeleton";
 import { ErrorNotice } from "@/components/error-notice";
 import { FALLBACK_ERROR_MESSAGE } from "@/lib/config";
-import type { PlanFlowState } from "@/lib/plan-flow";
+import type { PlanFlowState } from "@/hooks/plan-flow";
 
 /**
  * Props for the air card, loading skeleton and air error.

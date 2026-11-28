@@ -1,7 +1,11 @@
 import { useCallback, useRef, type Dispatch } from "react";
-import { isAbortError, requestPlan, toClientMessage } from "@/lib/api/client";
+import {
+  isAbortError,
+  requestPlan,
+  toClientMessage,
+} from "@/lib/client/client";
 import type { PlaceInput } from "@/lib/api/schemas";
-import type { GeneratePlanInput, PlanFlowAction } from "@/lib/plan-flow";
+import type { GeneratePlanInput, PlanFlowAction } from "@/hooks/plan-flow";
 
 /**
  * Generates plans for the selected place and repeats the last request on retry.

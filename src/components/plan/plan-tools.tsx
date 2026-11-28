@@ -1,6 +1,6 @@
 import { PrintButton } from "@/components/print-button";
 import { ReadAloudButton } from "@/components/read-aloud-button";
-import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
+import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import type { Language } from "@/lib/llm/prompts";
 
 /**

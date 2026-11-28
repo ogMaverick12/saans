@@ -8,7 +8,7 @@ import {
   searchPlaces,
   toClientMessage,
   type ClientFetch,
-} from "@/lib/api/client";
+} from "@/lib/client/client";
 import type { AskRequest, PlanRequest, PlaceInput } from "@/lib/api/schemas";
 import { buildDigest, buildProfile } from "../impact/test-data";
 import { VALID_PLAN } from "../llm/test-data";

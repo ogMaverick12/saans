@@ -1,5 +1,5 @@
-import type { ClientAirDigest } from "@/lib/api/client-schemas";
-import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
+import type { ClientAirDigest } from "@/lib/client/client-schemas";
+import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import type { PlaceInput } from "@/lib/api/schemas";
 import type { Language, ReadingMode } from "@/lib/llm/prompts";
 import type { Profile } from "@/lib/profile/schema";

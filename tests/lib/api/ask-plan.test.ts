@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { toAskPlan } from "@/lib/api/ask-plan";
-import { buildClientPlan } from "./client-test-data";
+import { buildClientPlan } from "../client/client-test-data";
 
 describe("toAskPlan", () => {
   it("replaces attached factors with their identifiers", () => {

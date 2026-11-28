@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import type { ClientGeocodeMatch } from "@/lib/api/client-schemas";
+import { cn } from "cn";
+import type { ClientGeocodeMatch } from "@/lib/client/client-schemas";
 import { describePlace, locationOptionId } from "@/lib/place-search";
 
 /**

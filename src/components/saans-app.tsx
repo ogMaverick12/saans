@@ -1,14 +1,16 @@
 "use client";
 
-import "@/lib/zod-config";
-
 import dynamic from "next/dynamic";
 import { useRef } from "react";
+import { z } from "zod";
 import { AirSection } from "@/components/air-section";
 import { LocationSearch } from "@/components/location-search";
 import { PlanSection } from "@/components/plan-section";
 import { usePlanFlow } from "@/hooks/use-plan-flow";
-import type { PlanFlowState } from "@/lib/plan-flow";
+import type { PlanFlowState } from "@/hooks/plan-flow";
+
+// Disable Zod's eval-based JIT so the strict CSP never reports its feature probe.
+z.config({ jitless: true });
 
 const ProfileForm = dynamic(
   () =>

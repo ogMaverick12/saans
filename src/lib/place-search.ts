@@ -1,4 +1,4 @@
-import type { ClientGeocodeMatch } from "@/lib/api/client-schemas";
+import type { ClientGeocodeMatch } from "@/lib/client/client-schemas";
 
 /**
  * The shortest query the place search accepts.

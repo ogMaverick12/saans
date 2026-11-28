@@ -1,7 +1,7 @@
 import type {
   ClientImpactFactor,
   ClientPlanWithImpact,
-} from "@/lib/api/client-plan-schemas";
+} from "@/lib/client/client-plan-schemas";
 import type { Plan } from "@/lib/llm/plan-schema";
 
 /**

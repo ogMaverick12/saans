@@ -4,13 +4,13 @@ import {
   GeocodeMatchSchema,
   type ClientAirDigest,
   type ClientGeocodeMatch,
-} from "@/lib/api/client-schemas";
+} from "@/lib/client/client-schemas";
 import {
   PlanResponseSchema,
   type ClientPlanResponse,
-} from "@/lib/api/client-plan-schemas";
-import type { ClientRequestOptions } from "@/lib/api/client-errors";
-import { jsonPost, requestJson } from "@/lib/api/client-request";
+} from "@/lib/client/client-plan-schemas";
+import type { ClientRequestOptions } from "@/lib/client/client-errors";
+import { jsonPost, requestJson } from "@/lib/client/client-request";
 import type { AskRequest, PlanRequest, PlaceInput } from "@/lib/api/schemas";
 import { AskSchema, type Ask } from "@/lib/llm/plan-schema";
 
@@ -21,7 +21,7 @@ export {
   ClientError,
   isAbortError,
   toClientMessage,
-} from "@/lib/api/client-errors";
+} from "@/lib/client/client-errors";
 /**
  * Error and request-option types used by the browser client.
  */
@@ -29,7 +29,7 @@ export type {
   ClientErrorCode,
   ClientFetch,
   ClientRequestOptions,
-} from "@/lib/api/client-errors";
+} from "@/lib/client/client-errors";
 
 /**
  * Searches for places by name.

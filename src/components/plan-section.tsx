@@ -4,11 +4,11 @@ import dynamic from "next/dynamic";
 import type { RefObject } from "react";
 import { ErrorNotice } from "@/components/error-notice";
 import { PlanSkeleton } from "@/components/plan-skeleton";
-import type { ClientAirDigest } from "@/lib/api/client-schemas";
-import type { ClientPlanWithImpact } from "@/lib/api/client-plan-schemas";
+import type { ClientAirDigest } from "@/lib/client/client-schemas";
+import type { ClientPlanWithImpact } from "@/lib/client/client-plan-schemas";
 import type { PlaceInput } from "@/lib/api/schemas";
 import { FALLBACK_ERROR_MESSAGE } from "@/lib/config";
-import type { PlanFlowState } from "@/lib/plan-flow";
+import type { PlanFlowState } from "@/hooks/plan-flow";
 import type { Profile } from "@/lib/profile/schema";
 
 const PlanResult = dynamic(

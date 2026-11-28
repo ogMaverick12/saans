@@ -3,9 +3,9 @@ import {
   INITIAL_PLAN_FLOW_STATE,
   planFlowReducer,
   type PlanFlowState,
-} from "@/lib/plan-flow";
+} from "@/hooks/plan-flow";
 import type { PlaceInput } from "@/lib/api/schemas";
-import { buildClientPlan } from "../lib/api/client-test-data";
+import { buildClientPlan } from "../lib/client/client-test-data";
 import { buildDigest, buildProfile } from "../lib/impact/test-data";
 
 const PLACE: PlaceInput = {

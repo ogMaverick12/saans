@@ -3,7 +3,7 @@ import {
   ClientError,
   isAbortError,
   toClientMessage,
-} from "@/lib/api/client-errors";
+} from "@/lib/client/client-errors";
 
 describe("ClientError", () => {
   it("keeps its code, safe message and error identity", () => {

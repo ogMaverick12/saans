@@ -3,10 +3,10 @@ import {
   fetchAirDigest,
   isAbortError,
   toClientMessage,
-} from "@/lib/api/client";
-import type { ClientAirDigest } from "@/lib/api/client-schemas";
+} from "@/lib/client/client";
+import type { ClientAirDigest } from "@/lib/client/client-schemas";
 import type { PlaceInput } from "@/lib/api/schemas";
-import type { PlanFlowAction } from "@/lib/plan-flow";
+import type { PlanFlowAction } from "@/hooks/plan-flow";
 
 /**
  * Loads air for a place and cancels any request already in flight.

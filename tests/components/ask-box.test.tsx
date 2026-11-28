@@ -7,14 +7,14 @@ const mocks = vi.hoisted(() => ({
   askQuestion: vi.fn(),
 }));
 
-vi.mock("@/lib/api/client", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/lib/api/client")>();
+vi.mock("@/lib/client/client", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/client/client")>();
   return { ...actual, askQuestion: mocks.askQuestion };
 });
 
 import { AskBox } from "@/components/ask-box";
-import { ClientError } from "@/lib/api/client";
-import { buildClientPlan } from "../lib/api/client-test-data";
+import { ClientError } from "@/lib/client/client";
+import { buildClientPlan } from "../lib/client/client-test-data";
 import { VALID_ASK } from "../lib/llm/test-data";
 
 const PLACE = {

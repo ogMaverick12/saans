@@ -125,15 +125,16 @@ src/
     layout.tsx         landmarks, skip link, attribution
     page.tsx           home page
   components/          presentational components, one per file
-    plan/              five plan sections, safety note and plan tools
+    plan/              five plan sections, safety note, plan tools and display helpers
     profile/           profile fieldsets and error summary
     ui/                shadcn/ui primitives
-  hooks/               client state, search, geolocation and plan flow
+  hooks/               client state, search, geolocation and the plan flow reducer
   lib/
     air/               upstream clients, schemas, hourly analysis, formatting
-    api/               guards, request schemas, browser client, health
+    api/               guards, request schemas, health
+    client/            browser fetchers and client response schemas
     impact/            factor catalog, exposure and trip estimates
-    llm/               providers, prompts, schema, generation, display
+    llm/               providers, prompts, schema, generation
     profile/           profile schema, options and form mapping
     security/          allowlist, headers, rate limit, sanitising
     abort.ts           shared abort detection
@@ -142,9 +143,6 @@ src/
     errors.ts          typed AppError with safe messages
     logger.ts          logger that never records request bodies
     place-search.ts    search status and announcements
-    plan-flow.ts       pure air-and-plan state reducer
-    utils.ts           className helper
-    zod-config.ts      disables Zod's eval-based JIT for the strict CSP
 tests/                 mirrors src/
   api/ app/ components/ fixtures/ hooks/ lib/
 ```
@@ -334,7 +332,7 @@ The digest contains the current PM2.5, US AQI, US category, optional CPCB catego
   form-action 'self'
   ```
 
-  Inline scripts and styles are required because Next.js streams hydration data and styles. Production does **not** include `'unsafe-eval'`. Development adds it for Next.js tooling. The client entry imports `src/lib/zod-config.ts` before any schema is built, which disables Zod's eval-based JIT with `z.config({ jitless: true })`, so the strict CSP never reports a blocked eval probe.
+  Inline scripts and styles are required because Next.js streams hydration data and styles. Production does **not** include `'unsafe-eval'`. Development adds it for Next.js tooling. The app shell calls `z.config({ jitless: true })` at module load, which disables Zod's eval-based JIT, so the strict CSP never reports a blocked eval probe.
 
 - **Rendering.** LLM text is rendered as React text nodes. There is no `dangerouslySetInnerHTML` and no `eval`.
 - **Errors.** A typed `AppError` carries a stable code and a safe message. Stack traces and upstream details are never sent to the browser.
